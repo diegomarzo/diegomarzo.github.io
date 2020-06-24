@@ -4,9 +4,7 @@ title: Create environments for your company with AWS Organizations
 published: true
 ---
 
-## Create environments for your company with AWS Organizations
-
-So, our use case is the following, Lupita (my Chihuahua) just registered her AWS account because she wants to start her own Gaming Company, the first thing she realised she want to do, to start everything from right point it is to split her account into different separate environments, this way she can be implementing new stuff in the DEV environment, while I am testing that all is going well in our TEST environment before moving everything to Production so our clients can play our games. We also realised we need to have some things in a common place.
+So, our use case is the following, Lupita just registered her AWS account because she wants to start her own Gaming Company, the first thing she realised she want to do, to start everything from right point it is to split her account into different separate environments, this way she can be implementing new stuff in the DEV environment, while I am testing that all is going well in our TEST environment before moving everything to Production so our clients can play our games. We also realised we need to have some things in a common place.
 
 My preferred option to do this task is to make use of the AWS Organisations.
 
@@ -14,7 +12,7 @@ It is not a difficult thing to do but it is important to understand what are we 
 
 ### Important consideration
 
->AWS will create accounts that are linked to your main account and you won't be able to delete them in an easy fashion. So if you don't like the name of the account, you cannot simply remove it and recreate, you will need to log in the account and change from there, so be careful when choosing the name you want for it to avoid extra work!!!
+>AWS Organizations will create AWS Accounts and then it will link them as Sub Accounts of your master. Since the AWS Account creation is a complex process, if you do not like the name you selected you cannot simply delete your account from AWS Organization console and recreate it, because AWS will complain about a sub-account  becaming orphan without any bill information.
 
 ### What we will have achieved at the end of this tutorial
 
