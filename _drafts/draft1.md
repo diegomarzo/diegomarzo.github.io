@@ -27,7 +27,7 @@ AWS will create accounts that are linked to your main account and you won't be a
 
 *The only pre-requisite it is to have your own AWS account and a user with Administration previliges created in IAM*
 
-## Lets starts!
+## Lets start!
 
 ### Creation of Sub Accounts
 
