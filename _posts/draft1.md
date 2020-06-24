@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 
 ## Create environments for your company with AWS Organizations
