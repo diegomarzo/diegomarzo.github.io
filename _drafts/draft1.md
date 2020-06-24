@@ -25,3 +25,16 @@ AWS will create accounts that are linked to your main account and you won't be a
 	- common.mycomponany
 - Role switching functionality in place to move between accounts
 
+*The only pre-requisite it is to have your own AWS account and a user with Administration previliges created in IAM*
+
+### Lets starts!
+
+1.Go to **AWS Organizations**
+	- You will see a table with 1 account only, this is your **Master Account** and it has a star next to its name, you cannot remove it from the organization.
+    - The master account will be the owner of the users that will be able to assume the role that will allow them to go into the other accounts.
+    
+2.Press on **Add account** button, here you will be asked to *Invite an account* (in case you have an account already) or to **Create Account**, that is what we will do.
+
+3.Now we need to add some data for the account:
+	- Full name, we will put here our environment name, for example **dev.mycompany**. Remember to pick carefully this name, because change it is a bit painful (we will cover it in another post).
+    - 
