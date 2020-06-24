@@ -10,7 +10,7 @@ My preferred option to do this is to make use of the AWS Organisations.
 
 It is not a difficult thing to do but it is important to understand what are we doing :) 
 
-**Important consideration**
+### Important consideration
 AWS will create accounts that are linked to your main account and you won't be able to delete them in an easy fashion. So if you don't like the name of the account, you cannot simply remove it and recreate, you will need to log in the account and change from there, so be careful when choosing the name you want for it to avoid extra work!!!
 
 ### What we will have achieved at the end of this tutorial
@@ -27,14 +27,39 @@ AWS will create accounts that are linked to your main account and you won't be a
 
 *The only pre-requisite it is to have your own AWS account and a user with Administration previliges created in IAM*
 
-### Lets starts!
+## Lets starts!
+
+### Creation of Sub Accounts
 
 1.Go to **AWS Organizations**
-	- You will see a table with 1 account only, this is your **Master Account** and it has a star next to its name, you cannot remove it from the organization.
-    - The master account will be the owner of the users that will be able to assume the role that will allow them to go into the other accounts.
+- You will see a table with 1 account only, this is your **Master Account** and it has a star next to its name, you cannot remove it from the organization.
+
+- The master account will be the owner of the users that will be able to assume the role that will allow them to go into the other accounts.
     
-2.Press on **Add account** button, here you will be asked to *Invite an account* (in case you have an account already) or to **Create Account**, that is what we will do.
+2.Press on **Add account** button, here you will be asked to:
+- *Invite an account*:in case you have an account already) 
+- **Create Account**, that is what we will do.
 
 3.Now we need to add some data for the account:
-	- Full name, we will put here our environment name, for example **dev.mycompany**. Remember to pick carefully this name, because change it is a bit painful (we will cover it in another post).
-    - 
+
+- Full name: This is the name of the AWS SubAccount that will be created inside the organisation, we will put here our environment name, for example **dev.mycompany**. Remember to pick carefully this name, because change it is a bit painful (we will cover it in another post).
+
+- Email: This is the email that will be linked to the AWS account that will be created, cannot be the same one you used in the main account, so create emails in your domain, or, if you cannot (or you don't want to) you can use an alias with "+", so for example if your main account email is something like **tech@mycompany.com** you can use **tech+dev@mycompany.com**
+
+- IAM Role: The IAM Role that will grant a master account user to assume the role in the sub account, it is recommended to use the default **OrganizationAccountAccessRole**, that will be also used if we leave the text box blank, since this is the role name used around all AWS documentation.
+  - **And behind this small line a lot of spiders are hidden**. 
+  
+  - Let's breath and explain it a bit more:
+    - In AWS you can create, in an **Account A** a Role and link it to a **Trusted Entity**, this is an Amazon **Account B** that is external to our account and then you can assign then some policies to this Role
+    - And user of this **Account B**(**Trusted Entity**) can assume the role that is linked in the **Account A**.
+    - In our case Account B is the Master Account: mycompany and Account A is the Sub Account dev.mycompany. And if we have an user called **Lupita** in **mycompany**, she will be allowd to switch her role to assume the **OrganizationAccountAccessRole** in the **dev.mycompany**
+  - Important, if you decide to do not go with the standard name, make sure you remember the one you selected, because, the Role will exist in the subaccount, so, if you do not remember it, you won't be able to switch role and go to the subaccount.
+
+4.Press **Create** and AWS will create your sub account, and you will be redirected to the **AWS Organizations** main Accounts tab, do not worry if your account doesn't get filled up straight forward, it can takes a little bit, refresh your page and hopefully you will have all filled.
+
+5.**SUPERIMPORTANT** You have there your new Account ID, this is the identifier of the account that will be used to **Switch Role**
+
+### Switch Role
+
+ 
+
