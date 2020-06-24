@@ -59,7 +59,23 @@ AWS will create accounts that are linked to your main account and you won't be a
 
 5.**SUPERIMPORTANT** You have there your new Account ID, this is the identifier of the account that will be used to **Switch Role**
 
-### Switch Role
+### Switching Roles
 
+Switching roles it is a pretty simple thing to do, but still need to be set up. 
+
+1. You need to be logged with a IAM user, so it can asume the account access role for the sub account
+2. We need to click in the Switch Role option after clicking our user name in the console.
+3. There we are going to fill 4 things:
+  - Account: This is the Account ID of the subaccount we want to access
+  - Role: **OrganizationAccountAccessRole** (or whatever thing you decided to put, if you didn't trust me)
+  - Display Name: Anything that makes you confortable with, this is personal to your user, for example I like to put **dev.mycompany**
+  - Color: Also like *Display name* it is personal for your user, I like to use the following color codes
+    - Red: Production
+    - Green: Test
+    - Blue: Dev
+    - Black: Common
+  - This way, if I need to add some Stagging or UAT environments I can always use the Orages depending on the severity.
+4. Press Switch Role and you will be in your new Environment Account, that is how we can refer to them from now on.
+  
  
 
