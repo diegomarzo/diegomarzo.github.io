@@ -1,4 +1,6 @@
 ---
+layout: post
+title: Create environments for your company with AWS Organizations
 published: true
 ---
 
