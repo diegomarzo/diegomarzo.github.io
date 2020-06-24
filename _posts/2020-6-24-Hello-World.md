@@ -10,4 +10,4 @@ Lupita the Coyote and me will be writing some stuff with me about Coding, AWS an
 
 ![image](/images/picture-lupita.png)
 
-Thank you to Barry Clark and all the contributors for their amazing job with Jekyll Now!
+Thank you to Barry Clark and all the contributors for their amazing job with Jekyll!
