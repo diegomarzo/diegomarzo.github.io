@@ -12,7 +12,7 @@ It is not a difficult thing to do but it is important to understand what are we 
 
 ### Important consideration
 
-AWS will create accounts that are linked to your main account and you won't be able to delete them in an easy fashion. So if you don't like the name of the account, you cannot simply remove it and recreate, you will need to log in the account and change from there, so be careful when choosing the name you want for it to avoid extra work!!!
+>AWS will create accounts that are linked to your main account and you won't be able to delete them in an easy fashion. So if you don't like the name of the account, you cannot simply remove it and recreate, you will need to log in the account and change from there, so be careful when choosing the name you want for it to avoid extra work!!!
 
 ### What we will have achieved at the end of this tutorial
 
