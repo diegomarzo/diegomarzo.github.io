@@ -4,9 +4,7 @@ title: We are up and running!
 published: true
 ---
 
-Here is the blog!
-
-Lupita the Coyote and me will be writing some stuff with me about Coding, AWS and like my friend told me `ramblings-of-a-java-game-developer-turned-devops-junkie`
+Lupita the Coyote and me will be writing some stuff with me about Coding, AWS, and all the things we think about that can be interesting to do a brain dump here, at the end of the day, like my friend told me this going to be like `Ramblings of a Java game developer turned devops junkie`
 
 ![image](/images/picture-lupita.png)
 
