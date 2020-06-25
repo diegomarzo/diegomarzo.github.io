@@ -5,7 +5,7 @@ permalink: /about/
 published: true
 ---
 
-## Some information about us! 
+**Some information about us!**
 
 We are Lupita and Diego. She is a chihuahua and I'm a developer, I have been working for the last 15 years, more or less, in iGaming in a bunch of countries doing amazing Casino Games.
 
@@ -15,7 +15,7 @@ I have been working the last 3 years with AWS and these days I'm playing heavy w
 
 So this is what is mainly going to be the blog about.
 
-### We hope you enjoy our content
+**We hope you enjoy our content (she is much nicer than the logo)**
 
-
+![Lupita, somehow]({{site.baseurl}}//images/head-chi.png)
 
