@@ -13,8 +13,9 @@ I mainly developed in Java, but in the last 4-5 years I have been writing all in
 
 I have been working the last 3 years with AWS and these days I'm playing heavy with it.
 
-So this is what is mainly going to be the blog about, I hope you enjoy :)
+So this is what is mainly going to be the blog about.
 
+### We hope you enjoy our content
 
 
 
