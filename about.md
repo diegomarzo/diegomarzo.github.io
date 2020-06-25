@@ -17,5 +17,4 @@ So this is what is mainly going to be the blog about.
 
 **We hope you enjoy our content (she is much nicer than the logo)**
 
-![Lupita, somehow]({{site.baseurl}}//images/head-chi.png)
-
+![image](/images/images/head-chi.png)
