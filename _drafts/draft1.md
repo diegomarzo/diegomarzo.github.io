@@ -25,5 +25,52 @@ This way her customers can access the elements placed on the public side and not
 
 *I recommend you to create a Repository where you are going to keep your AWS CloudFormation templates and only your templates. Because if you decide to automatise your template deployment you don't want to trigger stack creations just because you are changing an image, a document and, in general, anything that is related with your stacks*
 
-You can use JSON format or YAML format, I will use YAML because it is less verbose than the JSON, at the same time you need to be much more careful with your spaces, the non use of tabs...
+You can use JSON format or YAML format, I will use YAML because it is less verbose and you can add comments easily, at the same time you need to be much more careful with your spaces, the non-use of tabs...
 
+1) Define your Stack
+
+The following block is almost the most basic thing you can have (you could remove the description).
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Description:  This is the stack for the network in Lupita Enterprises    
+Resources:
+```
+The sections here are:
+* AWSTemplateFormatVersion, this is the only version available and we need to indicate it
+* Description, an optional section where we can write down some description about the template
+* Resource, here is where we will write down the stuff!!!
+
+2) Define the network mappings
+This is an optional step but I like to have my IP's centralised somewhere, and this is the Mappings section:
+```
+Mappings:
+  SubnetConfig:
+    # General VPC
+    VPC:
+      CIDR: 10.0.0.0/16
+    # Operators subnet  
+   SubnetAPublic:
+      CIDR: 10.0.0.0/24 
+   SubnetBPrivate:
+      CIDR: 10.0.1.0/24    
+```
+There is nothing special here, we define the CIDR we want to use when creating our VPC and our Subnets. 
+
+To see a bit more about CIDR click here to go to this post: 
+
+3) Create a VPC under resources:
+```
+VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !FindInMap ['SubnetConfig', 'VPC', 'CIDR']
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+      - Key: Name
+        Value: !Join ['', [!Ref "AWS::StackName", "-VPC"]]
+```
+A VPC or Virtual Private Cloud is a private section of the Cloud that we can define. By default, when an account is created, AWS creates one for us, and it is called "default", but, since we want to be able to create, re-create and delete stacks, is not too cool to be touching default stuff, especially delete default stuff.
+
+If we look into a bit more of detail the script we can see several entries, the first one is the type of the resource we are going to create **AWS::EC2::VPC**, not a lot to add about it.
+Then we have a property section, 
