@@ -54,13 +54,18 @@ In our CIDR Mapping that can be found in the CloudFormation Post we have this ta
 
 The VPC will he a subnet of 2^16 addresses, all of them starting with "10.0", and having this subnet mask: 255.255.0.0
 16 = 2 * 8 => The 2 first blocks are common
+Example of addresses inside the group: `10.0.4.24`, `10.0.0.1`, `10.0.45.234`
 
 The SubnetAPublic will have 2^8 addresses, all of them starting with "10.0.0" and having this subnet mask: 255.255.255.0
 24 = 3 * 8 => The 3 first blocks are common
+Example of addresses inside the group: `10.0.0.24`, `10.0.0.1`, `10.0.0.234`
 
 The SubnetBPublic will have 2^8 addresses, all of them starting with "10.0.1" and having this subnet mask: 255.255.255.0
 24 = 3 * 8 => The 3 first blocks are common
+Example of addresses inside the group: `10.0.1.24`, `10.0.1.1`, `10.0.1.234`
 
+
+All the addresses inside SubnetA and SubnetB are valid addresses of VPC network.
 
 **Note:** It is normal to forget the stuff we do not use, do not be ashamed like me :). Perhaps your super brilliant network engineer friend doesn't know how to reverse an array in Python, and he should not be ashamed of that :).
 
