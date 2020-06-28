@@ -3,25 +3,25 @@ published: false
 ---
 ## Networks and CIRD notation
 
-One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knowldge I used to have about a lot of things related with Networking was really really rusty, also basic stuff. 
+One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knowledge I used to have about a lot of things related with Networking was really really rusty, also basic stuff. 
 
-I need to say that even I feel embarrased to ask my friend, top notch network engineer, because they were so basic!.
+I need to say that even I feel embarrassed to ask my friend, top-notch network engineer because they were so basic!.
 
-But then you are checking something with a another developer, and one of this topics appear, and you look at each other like... man, do you know what the heck is this?
+But then you are checking something with another developer, and one of these topics appear, and you look at each other like... man, do you know what the heck is this?
 
-So I'm not ashamed to say that one of this things was the CIDR notation, so I think a pretty basic post can be handy.
+So I'm not ashamed to say that one of these things was the CIDR notation, so I think a pretty basic post can be handy.
 
 ### IP4 and masking
 
 Ok, everybody has seen IP4 addresses, they look something like this: 216.58.200.1
 
-There are 4 blocks of numbers, between 0 and 255, and this is because every block is the decimal representation of a 8 bits = 1 Byte
+There are 4 blocks of numbers, between 0 and 255, and this is because every block is the decimal representation of 8 bits = 1 Byte
 
 Our address will be then:
 11011000.00111010.11001000.00000001
 
 
-So, if we have a set of IPS, for example, that go from 216.58.200.0 to 216.58.200.255, we need a way of representing this range, and perhaps you remember setting up some oldnetwork to play some LAN Quake you already identified that what I put is equivalent to:
+So, if we have a set of IPS, for example, that go from 216.58.200.0 to 216.58.200.255, we need a way of representing this range, and perhaps you remember setting up some old network to play some LAN Quake you already identified that what I put is equivalent to:
 
 IP4: 216.58.200.0
 SubnetMask: 255.255.255.0
@@ -29,16 +29,16 @@ SubnetMask: 255.255.255.0
 What **CIDR** means?
 >Classless inter-domain routing (CIDR) is a set of Internet protocol (IP) standards that are used to create unique identifiers for networks and individual devices.
 
-This is when the CIDR was defined, for example that range can be expressed like:
+This is when the CIDR was defined, for example, that range can be expressed like:
 
 216.58.200.0/24
 
 And this is a much more compact way of expressing a group of IP's
 
-What it means is, from the 32 bits that represents a IP4 address you are going to have a group where the first 24 are the same for all of them.
+What it means is, from the 32 bits that represent an IP4 address you are going to have a group where the first 24 are the same for all of them.
 
 
-In our CIDR Mapping that can be find in the CloudFormation Post we have this table:
+In our CIDR Mapping that can be found in the CloudFormation Post we have this table:
 
 ```
   SubnetConfig:
@@ -62,5 +62,5 @@ The SubnetBPublic will have 2^8 addresses, all of them starting with "10.0.1" an
 24 = 3 * 8 => The 3 first blocks are common
 
 
-**Note:** It is normal to forget stuff we do not use, do not be ashamed like me :). Perhaps your super brilliant network engineer friend doesn't know how to reverse an array in Python, and he should not be ashamed of that :).
+**Note:** It is normal to forget the stuff we do not use, do not be ashamed like me :). Perhaps your super brilliant network engineer friend doesn't know how to reverse an array in Python, and he should not be ashamed of that :).
 
