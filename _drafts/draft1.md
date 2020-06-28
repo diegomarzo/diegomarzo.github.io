@@ -16,9 +16,14 @@ A CloudFormation template can be deployed in different environments, so, we do n
 
 *In a future post, we will explain how to specify different things for different environments, for example, the instance type of an **EC2** can differ between different environments.*
 
-So enough talking and go to the action!
+**So... enough talking and go to the action!**
 
 ## Cloud Formation Template creation
 
 Lupita has very basic requirements, she simply wants to have 2 subnets in her system, one of them, public and one of them, private
 This way her customers can access the elements placed on the public side and not on the private one.
+
+*I recommend you to create a Repository where you are going to keep your AWS CloudFormation templates and only your templates. Because if you decide to automatise your template deployment you don't want to trigger stack creations just because you are changing an image, a document and, in general, anything that is related with your stacks*
+
+You can use JSON format or YAML format, I will use YAML because it is less verbose than the JSON, at the same time you need to be much more careful with your spaces, the non use of tabs...
+
