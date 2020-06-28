@@ -3,18 +3,64 @@ published: false
 ---
 ## Networks and CIRD notation
 
-One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knoeldge I used to have about a lot of things related with Networking was really really rusty, I need to say that even I feel embarrased to ask my friend, top notch network engineer, even considering is my friend because they are very basic topics.
+One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knowldge I used to have about a lot of things related with Networking was really really rusty, also basic stuff. 
 
-What is a **CIDR**?
+I need to say that even I feel embarrased to ask my friend, top notch network engineer, because they were so basic!.
+
+But then you are checking something with a another developer, and one of this topics appear, and you look at each other like... man, do you know what the heck is this?
+
+So I'm not ashamed to say that one of this things was the CIDR notation, so I think a pretty basic post can be handy.
+
+### IP4 and masking
+
+Ok, everybody has seen IP4 addresses, they look something like this: 216.58.200.1
+
+There are 4 blocks of numbers, between 0 and 255, and this is because every block is the decimal representation of a 8 bits = 1 Byte
+
+Our address will be then:
+11011000.00111010.11001000.00000001
+
+
+So, if we have a set of IPS, for example, that go from 216.58.200.0 to 216.58.200.255, we need a way of representing this range, and perhaps you remember setting up some oldnetwork to play some LAN Quake you already identified that what I put is equivalent to:
+
+IP4: 216.58.200.0
+SubnetMask: 255.255.255.0
+
+What **CIDR** means?
 >Classless inter-domain routing (CIDR) is a set of Internet protocol (IP) standards that are used to create unique identifiers for networks and individual devices.
 
-It is a notation that allows network engineers to specify set of IP's, and it is formed by 2 blocks of numbers:
-`A.B.C.D/E`
-Where A.B.C.D represents an IP4 address and E represents the mask for it, the easiest way to understand it is with an example, and we have 3!
+This is when the CIDR was defined, for example that range can be expressed like:
 
-Our VPC Ip CIRD representation is 10.0.0.0/16
+216.58.200.0/24
 
-So the IP is 10.0.0.0 and the CIRD is 16, this means that the first 16 bits of the IP (remember every number in the IP4 is the representation of a Byte, this is 8 Bits) are going to be fixed for all our group of IPs, this is, all of them will start with **10.0.**, so for example 10.0.34.173 it is a valid IP that is part ouf our CIRD defined group, and for example 10.4.0.2 or 182.0.0.0 are not part of our group 
+And this is a much more compact way of expressing a group of IP's
 
-The same way, our Subnets are 10.0.0.0/24 and 10.0.1.0/24, these are 2 subnets, where the first 3 numbers define the group 10.0.0._ and 10.0.1_ 
-Note that 24 is 3*8, 3 blocks of 8 bits = 24 bits)
+What it means is, from the 32 bits that represents a IP4 address you are going to have a group where the first 24 are the same for all of them.
+
+
+In our CIDR Mapping that can be find in the CloudFormation Post we have this table:
+
+```
+  SubnetConfig:
+    # General VPC
+    VPC:
+      CIDR: 10.0.0.0/16
+    # Operators subnet  
+   SubnetAPublic:
+      CIDR: 10.0.0.0/24 
+   SubnetBPrivate:
+      CIDR: 10.0.1.0/24 
+```
+
+The VPC will he a subnet of 2^16 addresses, all of them starting with "10.0", and having this subnet mask: 255.255.0.0
+16 = 2 * 8 => The 2 first blocks are common
+
+The SubnetAPublic will have 2^8 addresses, all of them starting with "10.0.0" and having this subnet mask: 255.255.255.0
+24 = 3 * 8 => The 3 first blocks are common
+
+The SubnetBPublic will have 2^8 addresses, all of them starting with "10.0.1" and having this subnet mask: 255.255.255.0
+24 = 3 * 8 => The 3 first blocks are common
+
+
+**Note:** It is normal to forget stuff we do not use, do not be ashamed like me :). Perhaps your super brilliant network engineer friend doesn't know how to reverse an array in Python, and he should not be ashamed of that :).
+
