@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## Networks and CIRD notation
 
