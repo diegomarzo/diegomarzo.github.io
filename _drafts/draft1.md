@@ -177,13 +177,10 @@ Description:  This is the stack for the network in Lupita Enterprises
 Mappings:
   SubnetConfig:
     VPC:
-      # Class B network
       CIDR: 10.0.0.0/16
-   SubnetAPublic:
-      # Class C network
+    SubnetAPublic:
       CIDR: 10.0.0.0/24 
-   SubnetBPrivate:
-      # Class C network
+    SubnetBPrivate:
       CIDR: 10.0.1.0/24
 Resources:
   VPC:
@@ -223,3 +220,35 @@ Resources:
       VpcId: !Ref VPC
       InternetGatewayId: !Ref InternetGateway
 ```
+
+### 7) Deploy your Stack!
+
+Log in into the AWS Console.
+
+We have environments split in accounts, like explained in [this](https://diegomarzo.github.io/AWS-Organizations/) post, we are going to switch the Role to DEV
+
+Then we go to CloudFormation service, and we select "Create Stack" with "New Resources"
+
+Once here, you need to select "Template is ready" and "Upload a template file", choose your template yml file.
+
+Here something  I like to do is to "View in Designer", if you have any small syntax error will be also higlighted here and then it will display the visual representation of your network:
+
+
+
+***Note*** If you do not see your elements just zoom out :)
+
+Now press the `Create Stack` button and the Stack, then Next, insert here a Stack Name, `LupitaNetwork`, in our case, next and in the `Review LupitaNetwork` proceed to `Create the stack`.
+
+This operation will start the creation of the Stack, we just need to wait a little bit (go to the Events view and press refresh to see how it is going):
+
+
+
+And we are done!!!
+
+
+
+
+
+
+
+
