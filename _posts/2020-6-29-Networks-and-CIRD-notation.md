@@ -1,8 +1,6 @@
 ---
 published: true
 ---
-## Networks and CIRD notation
-
 One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knowledge I used to have about a lot of things related with Networking was really really rusty, even pretty basic stuff. 
 
 I need to say that even I feel embarrassed to ask my friend, top-notch network engineer because they were so basic!.
