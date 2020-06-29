@@ -233,16 +233,18 @@ Once here, you need to select "Template is ready" and "Upload a template file", 
 
 Here something  I like to do is to "View in Designer" if you have any small syntax error will be also highlighted here and then it will display the visual representation of your network:
 
-
+![image](/images/post3/LupitaNetworkCloudFormationDiagram.png)
 
 ***Note*** If you do not see your elements just zoom out :)
 
 Now press the `Create Stack` button and the Stack, then Next, insert here a Stack Name, `LupitaNetwork`, in our case, next and in the `Review LupitaNetwork` proceed to `Create the stack`.
 
+![image](/images/post3/CreateStackIcon.png)
+
 This operation will start the creation of the Stack, we just need to wait a little bit (go to the Events view and press refresh to see how it is going):
 
-
+![image](/images/post3/CloudFormationEvents.png)
 
 And we are done!!!
 
-
+![image](/images/post3/CloudFormationResult.png)
