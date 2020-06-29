@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 ---
 ## Basic Network CloudFormation templating
 
