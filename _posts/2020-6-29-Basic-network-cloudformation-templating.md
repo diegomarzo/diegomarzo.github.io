@@ -54,7 +54,7 @@ Mappings:
 ```
 There is nothing special here, we define the CIDR we want to use when creating our VPC and our Subnets. 
 
-To see a bit more about CIDR click here to go to this post [POST]
+To see a bit more about CIDR click here to go to this post [here](https://diegomarzo.github.io/Networks-and-CIRD-notation/)
 
 ### 3) Create a VPC under resources:
 ```
