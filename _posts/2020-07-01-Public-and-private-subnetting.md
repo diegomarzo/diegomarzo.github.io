@@ -2,7 +2,7 @@
 published: true
 title: 'Public and Private Subnets, introduction'
 ---
-This is the first post of a series of 3 where we are going to go through the Basics of Subnetting in AWS.
+This is the first post of a series of 3 where we are going to go through the Basics of Subnetting in AWS where we will cover, in a very light way, the fundamentals of the subnets and how to set up them in Cloud Formation.
 
 We have seen that AWS creates for us a space called VPC, Virtual Private Cloud where all our things are located. 
 
