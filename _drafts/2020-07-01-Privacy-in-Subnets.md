@@ -14,11 +14,22 @@ A Private Subnet, in the other hand, is a Subnet that has no access to the Inter
 
 And all of this was very good.
 
-So before continuing to explain our fantastic NAT Gateways I will ask yourself to do the following question:
+Some times you want part of the elements of your system to access the internet, for example, a Lambda requires to access a third party service across the Internet, or the software running in your EC2 instance requires to download something...
 
-Do you REALLY need to have Internet access in your Subnet?
+For this cases, where we need to have OUTBOUND traffic but not INBOUND traffic, we can set up a NAT Gateway.
 
-Sometimes we end up falling into the Cargo Cult  AWS Cloudformation approach
+Now, before continuing I would like you to ask yourselve the following question, and if you have a Rubber Duck (or like me, a Playmobil Elephant, I need to talk with it when Lupita is not interested), try to explain to it what do you need
+
+![elephant](/images/elephant.jpeg)
+
+> Do you REALLY need to have Internet access in your Subnet?
+
+I'm taking this break and telling you to ask yourselve simply because I was setting up in on of my systems a NATGateway just in "Cruise Control Cloud Formation Coding Style" and I realise, WTF, I don't need to have all of this, my Subnet is properly properly Private. Or perhaps it is a good moment to recheck your application architecture and see if you should create a new Private Subnet that will have internet access and leave al the modules you can in a Pure Private subnet 
+
+So if the Answer is YES, I need to have access, we go ahead :)
+
+
+
 
 , but, what happens if you want to, from a Lambda, for example, perform a call to a third party service that it is in the Internet? Or from your application running in a EC2 instance?
 
