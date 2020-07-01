@@ -21,7 +21,7 @@ For this cases, where we need to have OUTBOUND traffic but not INBOUND traffic, 
 Now, before continuing I would like you to ask yourselve the following question, and if you have a Rubber Duck (or like me, a Playmobil Elephant, I need to talk with it when Lupita is not interested), try to explain to it what do you need
 
 ![elephant](/images/elephant.jpeg)
-My elephant, always there to listen carefully
+*My elephant, always there to listen carefully*
 
 > Do you REALLY need to have Internet access in your Subnet?
 
