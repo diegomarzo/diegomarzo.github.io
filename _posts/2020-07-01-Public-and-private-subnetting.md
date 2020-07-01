@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: 'Public and Private Subnets, introduction'
 ---
 This is the first post of a serie of 3 where we are going to go through the Basics of Subnetting in AWS.
