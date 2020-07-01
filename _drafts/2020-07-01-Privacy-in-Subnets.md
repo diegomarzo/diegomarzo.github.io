@@ -92,3 +92,6 @@ PrivateRouteTableEntry1:
 And thats all!!!
 
 Our Diagram looks like:
+
+The complete cloud formation template till now:
+
