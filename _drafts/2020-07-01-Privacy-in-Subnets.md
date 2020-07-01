@@ -21,6 +21,7 @@ For this cases, where we need to have OUTBOUND traffic but not INBOUND traffic, 
 Now, before continuing I would like you to ask yourselve the following question, and if you have a Rubber Duck (or like me, a Playmobil Elephant, I need to talk with it when Lupita is not interested), try to explain to it what do you need
 
 ![elephant](/images/elephant.jpeg)
+My elephant, always there to listen carefully
 
 > Do you REALLY need to have Internet access in your Subnet?
 
@@ -28,12 +29,66 @@ I'm taking this break and telling you to ask yourselve simply because I was sett
 
 So if the Answer is YES, I need to have access, we go ahead :)
 
+The AWS "definition" of it:
+
+> You can use a network address translation (NAT) gateway to enable instances in a private subnet to connect to the internet or other AWS services, but prevent the internet from initiating a connection with those instances. 
+
+The first thing to have in consideration, the NAT Gateway needs to live in a Public Subnet, because it needs to have access to the Internet (what it is pretty obvious, since it is what we are going to use it for).
+
+Another consideration is that, since we are going to access to it from another Subnet, we need to somehow provide it with an IP address, so it is accessible.
+
+This IP requires to be fixed, so we can refer to it, this is achieved by using an ElasticIPAddress.
+
+**Note** NAT Gateways are not for free, and Elastic IP Address are not free either, except when they are linked to a NAT Gateway, if you remove the NAT and you do not remove the Elastic IP you will be charged, and this is the beauty of Stacks and Cloud Formation, you create them together and you kill them together.
+
+So lets go to CloudFormation!
+
+First of all, lets create the ElasticIP address that we need to use:
+```
+ElasticIPAddress:
+  Type: AWS::EC2::ElasticIPAddress
+  Properties:
+    Domain: VPC
+```
+
+Now we create the NAT Gateway
+```
+NATGateway:
+  Type: AWS::EC2::NATGateway
+  Properties:
+    AllocationId: !GetAtt ElasticIPAddress.AllocationId
+    SubnetId: !Ref PublicSubnet
+    Tags:
+      - Key: Name
+      Value: !Sub NAT-${AWS::StackName}
+```
+
+Things to consider in the above script, is that we need to indicate the Subnet where we are going to put place the Gateway and also the AllocationId property. Since we do not know the IP itself that will be created by the ElasticIPAddress we need to reference it, but, in this case !Ref is not ok, becase we are not Referencing the component itself, like in the Subnet, we are referencing an attribute, for that task the intrinsic AWS function is `GetAtt`
+
+Now that we have our NAT Gateway, we are going to create the Route table and the rule for it:
+```
+PrivateRouteTable:
+  Type: AWS::EC2::RoutTable
+  Properties:
+    VpcId: !Ref VPC
+    Tags:
+      - Key: Name
+        Value: Private
+```
+
+This Route Table is empty at the moment, we need to add rules to it:
+```
+PrivateRouteTableEntry1:
+  Type: AWS::EC2::Route
+  Properties:
+    RouteTableId: !Ref PrivateRouteTable
+    DestinationCidrBlock: 0.0.0.0/0
+    NATGatewayId: !RefNATGateway
+```
+
+**Considerations**: If you have more than one private subnet you can still create only one private route table, and you can still have only 1 NATGateway, you do not really need more, unless you have a lot of outbound traffic and you want to split somehow the traffic between subnets or something very specific.
 
 
+And thats all!!!
 
-, but, what happens if you want to, from a Lambda, for example, perform a call to a third party service that it is in the Internet? Or from your application running in a EC2 instance?
-
-Here is where the NAT Gateways come to our rescue.
-
-But before going ahead you always need to make yourself the following question:
-Do I REALLY need to access 
+Our Diagram looks like:
