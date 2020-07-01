@@ -83,15 +83,21 @@ PrivateRouteTableEntry1:
   Properties:
     RouteTableId: !Ref PrivateRouteTable
     DestinationCidrBlock: 0.0.0.0/0
-    NATGatewayId: !RefNATGateway
+    NATGatewayId: !Ref NATGateway
 ```
 
 **Considerations**: If you have more than one private subnet you can still create only one private route table, and you can still have only 1 NATGateway, you do not really need more, unless you have a lot of outbound traffic and you want to split somehow the traffic between subnets or something very specific.
 
-
+Finally we hook up the table with our subnets via a `SubnetRouteTableAssociation` component:
+```
+PrivateSubnetRouteTableAssociation:
+  Type: AWS::EC2::SubnetRouteTableAssociation
+  Properties:
+    SubnetId: !Ref PrivateSubnet
+    RouteTableId: !Ref PrivateRouteTable
+```
 And thats all!!!
 
-Our Diagram looks like:
+Our complete diagram looks like:
 
-The complete cloud formation template till now:
-
+The complete cloud formation template:
