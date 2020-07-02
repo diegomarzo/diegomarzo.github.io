@@ -47,9 +47,9 @@ Mappings:
   SubnetConfig:
     VPC:
       CIDR: 10.0.0.0/16
-    SubnetAPublic:
+    PublicSubnet:
       CIDR: 10.0.0.0/24 
-    SubnetBPrivate:
+    PrivateSubnet:
       CIDR: 10.0.1.0/24    
 ```
 There is nothing special here, we define the CIDR we want to use when creating our VPC and our Subnets. 
@@ -95,24 +95,24 @@ To do this reference we used one of the **intrinsic functions** AWS provides, **
 ```
 # Block inside resources
   #Subnets
-  SubnetAPublic:
+  PublicSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: !FindInMap ['SubnetConfig', 'SubnetAPublic', 'CIDR']
+      CidrBlock: !FindInMap ['SubnetConfig', 'PublicSubnet', 'CIDR']
       AvailabilityZone: !Select [ 0, !GetAZs ]
       Tags:
         - Key: Name
-          Value: !Sub ${AWS::StackName}-SubnetAPublic
-  SubnetBPrivate:
+          Value: !Sub ${AWS::StackName}-PublicSubnet
+  PrivateSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: !FindInMap ['SubnetConfig', 'SubnetBPrivate', 'CIDR']
+      CidrBlock: !FindInMap ['SubnetConfig', 'PrivateSubnet', 'CIDR']
       AvailabilityZone: !Select [ 1, !GetAZs ]
       Tags:
         - Key: Name
-          Value: !Sub ${AWS::StackName}-SubnetBPrivate
+          Value: !Sub ${AWS::StackName}-PrivateSubnet
 ```
 
 In the script above you can see how to create the two subnets, the type is **AWS::EC2::Subnet** and they reference the VPC they belong to, using !Ref VPC, remember VPC is the identifier WE selected in the YAML.
@@ -176,9 +176,9 @@ Mappings:
   SubnetConfig:
     VPC:
       CIDR: 10.0.0.0/16
-    SubnetAPublic:
+    PublicSubnet:
       CIDR: 10.0.0.0/24 
-    SubnetBPrivate:
+    PrivateSubnet:
       CIDR: 10.0.1.0/24
 Resources:
   VPC:
@@ -191,24 +191,24 @@ Resources:
       - Key: Name
         Value: !Sub ${AWS::StackName}-VPC
   #Subnets
-  SubnetAPublic:
+  PublicSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: !FindInMap ['SubnetConfig', 'SubnetAPublic', 'CIDR']
+      CidrBlock: !FindInMap ['SubnetConfig', 'PublicSubnet', 'CIDR']
       AvailabilityZone: !Select [ 0, !GetAZs ]
       Tags:
         - Key: Name
-          Value: !Sub ${AWS::StackName}-SubnetAPublic
-  SubnetBPrivate:
+          Value: !Sub ${AWS::StackName}-PublicSubnet
+  PrivateSubnet:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
-      CidrBlock: !FindInMap ['SubnetConfig', 'SubnetBPrivate', 'CIDR']
+      CidrBlock: !FindInMap ['SubnetConfig', 'PrivateSubnet', 'CIDR']
       AvailabilityZone: !Select [ 1, !GetAZs ]
       Tags:
         - Key: Name
-          Value: !Sub ${AWS::StackName}-SubnetBPrivate
+          Value: !Sub ${AWS::StackName}-PrivateSubnet
   InternetGateway:
     Type: AWS::EC2::InternetGateway
     DependsOn: VPC
