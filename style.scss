@@ -271,7 +271,7 @@ nav {
   }
 }
 
-img + em { }
+img + em { display: block; }
 
 .wrapper-footer {
   margin-top: 50px;
