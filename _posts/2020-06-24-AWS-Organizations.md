@@ -2,6 +2,7 @@
 layout: post
 title: Create environments for your company with AWS Organizations
 published: true
+image: /images/aws-organizations.png
 ---
 
 So, our use case is the following, Lupita just registered her AWS account because she wants to start her own Gaming Company, the first thing she realised she want to do, to start everything from right point it is to split her account into different separate environments, this way she can be implementing new stuff in the DEV environment, while I am testing that all is going well in our TEST environment before moving everything to Production so our clients can play our games. We also realised we need to have some things in a common place.
@@ -77,6 +78,3 @@ Switching roles it is a pretty simple thing to do, but still need to be set up.
     - Black: Common
   - This way, if I need to add some Stagging or UAT environments I can always use the Orages depending on the severity.
 4. Press Switch Role and you will be in your new Environment Account, that is how we can refer to them from now on.
-  
- 
-
