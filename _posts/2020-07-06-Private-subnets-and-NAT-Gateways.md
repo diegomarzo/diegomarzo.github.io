@@ -104,6 +104,7 @@ And thats all!!!
 Our complete diagram looks like:
 
 ![complete_diagram](/images/complete_network_diagram.png)
+*Complete diagram*
 
 The complete cloud formation template:
 
