@@ -5,7 +5,7 @@ title: Public subnets and Internet Access
 In this post, that is the second in the series of 3 about Subnets, we will cover **Public Subnets**. We call **Public Subnet** to a Subnet that has available access to the Internet from a Network perspective, this means that the Subnet will be able to perform OUTBOUND call to the Internet and receive INBOUND calls. By default, when a Subnet is created, it is created as a private one, it is not hook to the internet, and when we need access from the outside to it and we need to access the internet from it we need to explicitly create the required AWS resources.
 
 ![image](/images/public_subnet_icon.png)
-Public Subnet
+*Public Subnet*
 
 ### Public route tables and Route entries
 
@@ -64,7 +64,7 @@ The SubnetRouteTableAssociation allows us to associate a Subnet with a RouteTabl
 This is the representation of our system now in the CloudFormationTemplate:
 
 ![diagram](/images/diagram_with_public.png)
-AWS Cloud Formation diagram
+*AWS Cloud Formation diagram*
 
 
 ### Complete cloud formation template
@@ -139,6 +139,3 @@ Resources:
       RouteTableId: !Ref PublicRouteTable
 
 ```
-
-
-
