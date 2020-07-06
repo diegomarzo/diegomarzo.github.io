@@ -2,8 +2,9 @@
 published: false
 title: 'Private subnets, do I need a NAT Gateway?'
 ---
-If we go back to our previous post about CloudFormation we mentioned our will to have a subnet private and a subnet public.
+In this post, that is the second in the series of 3 about Subnets, we will cover **Private Subnets** and how to connect them to the internet using a NAT Gateway if it is needed. We call **Private Subnet** to a Subnet that it is isolated from the Internet from a Network perspective, this means that the Subnet will not be able to perform OUTBOUND call to the Internet and receive INBOUND calls. By default, when a Subnet is created, it is created as a private one, but sometimes we need to access the Internet from them, for example to access a 3rd party service and we do not want to expose our subnet, for this we can use a NAT Gateway.
 
+If we go back to our previous post about CloudFormation we mentioned our will to have a subnet private and a subnet public.
 
 ![private_subnet](/images/private_subnet_icon.png)
 *Private Subnet*
