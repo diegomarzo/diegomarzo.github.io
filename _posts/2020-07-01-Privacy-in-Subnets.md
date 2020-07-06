@@ -6,7 +6,6 @@ In this post, that is the third in the series of 3 about Subnets, we will cover 
 
 If we go back to our previous post about CloudFormation we mentioned our will to have a subnet private and a subnet public.
 
-
 ![private_subnet](/images/private_subnet_icon.png)
 *Private Subnet*
 
