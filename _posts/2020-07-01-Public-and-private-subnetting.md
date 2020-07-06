@@ -10,7 +10,8 @@ We have seen that AWS creates for us a space called VPC, Virtual Private Cloud w
 
 The VPC spans all the Availability zones of the Region where the VPC is created.
 
-![elephant](/images/vpc.jpeg)
+![vpc](/images/vpc.jpeg)
+*VPC: Virtual Private Cloud*
 
 If you think about the VPC like a set of IP addresses then you can get a group of those addresses and create a special block, your **Subnet**. One interesting thing is that the Subnet needs to be defined in one Availability zone only.
 
@@ -28,6 +29,7 @@ We can do several things to limit, for example, the INBOUND calls, via IP Whitel
 
 * A Private Subnet, on the other hand, is a Subnet that has no access to the Internet, it is Decoupled. Other Subnets in the VPC can access to it, and for that reason, they make a lot of sense, you can have for example your EC2 instances there, running without access from the Outerworld, you can have your Databases and even your Lambdas there.
 
-![elephant](/images/subnets.jpeg)
+![subnets](/images/subnets.jpeg)
+*Subnets diagram*
 
 In the next posts, we will see how to set up Public and Private subnets, and also how to have some special hybrid between them: A Private Subnet with Internet Outbound capabilities.
