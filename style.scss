@@ -276,7 +276,7 @@ p img {
   margin: 0 auto;
 }
 
-img em { 
+img + em { 
   display: block;
   text-align: center;
 }
