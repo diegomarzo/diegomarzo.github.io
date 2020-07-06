@@ -4,6 +4,10 @@ title: 'Private subnets, do I need a NAT Gateway?'
 ---
 If we go back to our previous post about CloudFormation we mentioned our will to have a subnet private and a subnet public.
 
+
+![private_subnet](/images/private_subnet_icon.png)
+*Private Subnet*
+
 Lets understand a bit better what that really means.
 
 We call Public Subnet to a Subnet that has available access to the Internet from a Network perspective, this means that the Subnet will be able to perform OUTBOUND call to the Internet and receive INBOUND calls.
@@ -100,4 +104,106 @@ And thats all!!!
 
 Our complete diagram looks like:
 
+![complete_diagram](/images/complete_network_diagram.png)
+
 The complete cloud formation template:
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Description:  This is the stack for the network in Lupita Enterprises
+# CIRD groups that will be used by the resources    
+Mappings:
+  SubnetConfig:
+    VPC:
+      CIDR: 10.0.0.0/16
+    PublicSubnet:
+      CIDR: 10.0.0.0/24 
+    PrivateSubnet:
+      CIDR: 10.0.1.0/24
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !FindInMap ['SubnetConfig', 'VPC', 'CIDR']
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+      - Key: Name
+        Value: !Sub ${AWS::StackName}-VPC
+  #Subnets, one public and one private
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !FindInMap ['SubnetConfig', 'PublicSubnet', 'CIDR']
+      AvailabilityZone: !Select [ 0, !GetAZs ]
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-PublicSubnet
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: !FindInMap ['SubnetConfig', 'PrivateSubnet', 'CIDR']
+      AvailabilityZone: !Select [ 1, !GetAZs ]
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-PrivateSubnet
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    DependsOn: VPC
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Public
+  PublicRouteTableEntry1:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+  ElasticIPAddress:
+    Type: AWS::EC2::ElasticIPAddress
+    Properties:
+      Domain: VPC
+  NATGateway:
+    Type: AWS::EC2::NATGateway
+    Properties:
+      AllocationId: !GetAtt ElasticIPAddress.AllocationId
+      SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: !Sub NAT-${AWS::StackName}
+  PrivateRouteTable:
+    Type: AWS::EC2::RoutTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: Private
+  PrivateRouteTableEntry1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PrivateRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      NATGatewayId: !Ref NATGateway
+  PrivateSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet
+      RouteTableId: !Ref PrivateRouteTable
+```
