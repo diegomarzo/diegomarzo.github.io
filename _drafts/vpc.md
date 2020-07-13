@@ -6,6 +6,78 @@ published: false
 ---
 1) Reference elements of one stack from another one
  
+CloudFormation is great, and the whole idea of **Infrastructure as Code** as a developer, it is simply brilliant, you can play with all the stuff, and then, you can remove it if you want, or step ahead and update it, and AWS CloudFormation will take care you do not mess up (usually :)). But when you start doing bigger templates, you realise that you need to split them, for several reasons, that are very linked with why, as a developer, you want to extract functions and libraries:
+
+- Shorter templates are easier to read
+- Writing your infrastructure in several parts helps with iterations: you start creating your VPC and your subnets, then your routing tables, then your S3 buckets and policies...
+- You can decouple elements of the configuration that are not coupled, for example, if you want to create a subnet for certain specifics (we will do a VPN Host server for example) it doesn't need to be along with the basic VPC configuration...
+
+And here is when you realise something:
+
+> Even when your templates are decoupled there are certain things that will require reference, for example your VPC Identifier will be needed any time you need to create a Subnet, or your main public route table will need to be updated to associate any new subnet that requires access to the internet and the same applies to any NAT Gateway.
+
+And for this reason you have available the **Output section**.
+
+The output section is the area of a CloudFormation template where you define and declare WHAT elements of your template need to be visible from the outside:
+
+For example, in our main CloudFormation network template we will need to expose our VPC Identifier and the Route Table identifier, if we want to add, externally, another subnet (that we will do in this post: [post of the VPC]
+
+And this is how it looks:
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+
+####
+
+
+The rest of our AWS Cloudformation template will be here
+
+
+####
+
+Outputs:
+  VPCId:
+    Description: VPC ID
+    Value:
+      Ref: VPC
+    Export:
+      Name:
+        Fn::Sub: "${AWS::StackName}-VPCID"
+  PublicRouteTableId:
+    Description: Public Route Table ID
+    Value:
+      Ref: PublicRouteTable
+    Export:
+      Name:
+        Fn::Sub: "${AWS::StackName}-PublicRouteTable"
+```
+
+It is pretty straight forward, at the end of the file (because it is easier to find and it is align with how usually you do in other development languajes like for example Javscript when creating modules, you create an **Output** section, and there you declare what you want to expose.
+
+Since we want to expose the ID of the elements we use the entry **Ref:**, if for example we just want to expose a String from a mapping, we can do something like:
+
+```
+ Value: 
+   FindInMap: ['IPsPerSecurityGroup', 'AdminDiego', 'allowedCidrIp']
+```
+
+**Note**: It is also acceptable to write the intrinsic fucntions straight forward, to generate a bit more compact code like this one:
+
+```
+Outputs:
+  VPCId:
+    Description: VPC ID
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${AWS::StackName}-VPCID"
+  PublicRouteTableId:
+    Description: Public Route Table ID
+    Value: !Ref PublicRouteTable
+    Export:
+      Name: !Sub "${AWS::StackName}-PublicRouteTable"
+```
+
+
 
 
 2) Access to VPC using a VPN with EC2 & CloudFormation
@@ -13,7 +85,7 @@ published: false
 There are several reason why you could want to access VPC private component, for example, you do not want anybody to access your DEV enviroment, or for example, here is a section of your system that you want to restrict access.
 
 Pre-requisites:
-We are going to use as a base our existing cloud formation template that can be find here:
+We are going to use as a base our existing cloud formation template that can be find here: [link to post that has external elements in the stack]
 
 *Note*: This cloud formation template has an output section we will use in this one with the VPC, the Route Table and the Internet Gateway.
 
