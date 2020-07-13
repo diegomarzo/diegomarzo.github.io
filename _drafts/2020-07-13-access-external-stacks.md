@@ -3,7 +3,7 @@ published: false
 title: Referencing external stacks in Cloud Formation
 ---
 
-CloudFormation is great, and the whole idea of **Infrastructure as Code** as a developer, it is simply brilliant, you can play with all the stuff, and then, you can remove it if you want, or step ahead and update it, and AWS CloudFormation will take care you do not mess up (usually :)). But when you start doing bigger templates, you realise that you need to split them and this is what we are going to cover in this post. 
+CloudFormation is a great tool, and the whole idea of **Infrastructure as Code** as a developer, it is simply brilliant, you can play with all the stuff, and then, you can remove it if you want, or step ahead and update it, and AWS CloudFormation will take care you do not mess up (usually :)). But when you start doing bigger templates, you realise that you need to split them and this is what we are going to cover in this post. 
 
 Why we should split our templates is very linked with why, as a developer, you want to extract functions and libraries:
 
@@ -13,13 +13,13 @@ Why we should split our templates is very linked with why, as a developer, you w
 
 And here is when you realise something:
 
-> Even when your templates are decoupled there are certain things that will require reference, for example your VPC Identifier will be needed any time you need to create a Subnet, or your main public route table will need to be updated to associate any new subnet that requires access to the internet and the same applies to any NAT Gateway.
+> Even when your templates are decoupled certain things will require a reference, for example, your VPC Identifier will be needed any time you need to create a Subnet, or your main public route table will need to be updated to associate any new subnet that requires access to the internet and the same applies to any NAT Gateway.
 
-And for this reason you have available the **Output section**.
+And for this reason, you have available the **Output section**.
 
 The output section is the area of a CloudFormation template where you define and declare WHAT elements of your template need to be visible from the outside:
 
-For example, in our main CloudFormation network template we will need to expose our VPC Identifier and the Route Table identifier, if we want to add, externally, another subnet.
+For example, in our main CloudFormation network template, we will need to expose our VPC Identifier and the Route Table identifier, if we want to add, externally, another subnet.
 
 And this is how it looks:
 
@@ -51,7 +51,7 @@ Outputs:
         Fn::Sub: "${AWS::StackName}-PublicRouteTable"
 ```
 
-It is pretty straight forward, at the end of the file (because it is easier to find and it is align with how usually you do in other development languajes like for example Javscript when creating modules, you create an **Output** section, and there you declare what you want to expose.
+It is pretty straight forward, at the end of the file (because it is easier to find and it is aligned with how usually you do in other development languages like for example Javascript when creating modules, you create an **Output** section, and there you declare what you want to expose.
 
 Since we want to expose the ID of the elements we use the entry **Ref:**, if for example we just want to expose a String from a mapping, we can do something like:
 
@@ -60,7 +60,7 @@ Since we want to expose the ID of the elements we use the entry **Ref:**, if for
    FindInMap: ['IPsPerSecurityGroup', 'AdminDiego', 'allowedCidrIp']
 ```
 
-**Note**: It is also acceptable to write the intrinsic fucntions straight forward, to generate a bit more compact code like this one:
+**Note**: It is also acceptable to write the intrinsic functions straight forward, to generate a bit more compact code like this one:
 
 ```
 Outputs:
@@ -76,7 +76,7 @@ Outputs:
       Name: !Sub "${AWS::StackName}-PublicRouteTable"
 ```
 
-With those entries we have now available the elements as output. The next step will be simply to import them, to do this, we need to declare the Stack from where we are loading the data and then make use of a intrinsic function to read the outputs:
+With those entries, we have now available the elements as output. The next step will be simple, import them, to do this, we need to declare the Stack from where we are loading the data and then make use of an intrinsic function to read the outputs:
 
 ```
 Parameters:
@@ -86,7 +86,7 @@ Parameters:
     Default: main-network
 ```
 
-It is important to note that we need to specify the main stack name, a recommened thing could be add a Default name here so we can import it easily from the CLI or from the Console, if not, we will need to navigate across the console to Copy&Paste the stack name, since the Console is not the friendliest interface around.
+It is important to note that we need to specify the main stack name, a recommended thing could add a Default name here so we can import it easily from the CLI or the Console, if not, we will need to navigate across the console to Copy&Paste the stack name, since the Console is not the friendliest interface around.
 
 To use one of the values, we just need tu use the Fn::ImportValue, so for example to read the VPC Id we declared before (!Sub "${AWS::StackName}-VPCID") we just need to write down the following, when creating our new Subnet:
 
@@ -132,3 +132,5 @@ Resources:
       SubnetId: !Ref SubnetAdmin
       RouteTableId: !ImportValue !Sub "${NetworkStackName}-PublicRouteTable"
 ```
+
+And that is all!!! Enjoy your infrastructure!!!
