@@ -20,7 +20,7 @@ And for this reason you have available the **Output section**.
 
 The output section is the area of a CloudFormation template where you define and declare WHAT elements of your template need to be visible from the outside:
 
-For example, in our main CloudFormation network template we will need to expose our VPC Identifier and the Route Table identifier, if we want to add, externally, another subnet (that we will do in this post: [post of the VPC]
+For example, in our main CloudFormation network template we will need to expose our VPC Identifier and the Route Table identifier, if we want to add, externally, another subnet.
 
 And this is how it looks:
 
@@ -77,7 +77,62 @@ Outputs:
       Name: !Sub "${AWS::StackName}-PublicRouteTable"
 ```
 
+With those entries we have now available the elements as output. The next step will be simply to import them, to do this, we need to declare the Stack from where we are loading the data and then make use of a intrinsic function to read the outputs:
 
+```
+Parameters:
+  NetworkStackName:
+    Description: Main network stack including VPC and Route Table
+    Type: String
+    Default: main-network
+```
+
+It is important to note that we need to specify the main stack name, a recommened thing could be add a Default name here so we can import it easily from the CLI or from the Console, if not, we will need to navigate across the console to Copy&Paste the stack name, since the Console is not the friendliest interface around.
+
+To use one of the values, we just need tu use the Fn::ImportValue, so for example to read the VPC Id we declared before (!Sub "${AWS::StackName}-VPCID") we just need to write down the following, when creating our new Subnet:
+
+```
+  SubnetAdmin:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !ImportValue !Sub "${NetworkStackName}-VPCID"
+      CidrBlock: !FindInMap ['SubnetConfig', !Ref 'AWS::AccountId', 'SubnetAdminCIDR']
+      AvailabilityZone: !Select [ 0, !GetAZs ]
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-SubnetAdmin
+```
+
+So our complete Cloud Formation Template, including the Subnet and the entry for the Route Table will look like:
+
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Description:  Administrative subnet + Route table entry
+
+Parameters:
+  NetworkStackName:
+    Description: Main network stack including VPC and Route Table
+    Type: String
+    Default: main-network
+
+Resources:
+  SubnetAdmin:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !ImportValue !Sub "${NetworkStackName}-VPCID"
+      CidrBlock: 10.0.10.0/24
+      AvailabilityZone: !Select [ 0, !GetAZs ]
+      Tags:
+        - Key: Name
+          Value: !Sub ${AWS::StackName}-SubnetAdmin
+
+  #Subnet table associations
+  SubnetAdminRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetAdmin
+      RouteTableId: !ImportValue !Sub "${NetworkStackName}-PublicRouteTable"
+```
 
 
 2) Access to VPC using a VPN with EC2 & CloudFormation
