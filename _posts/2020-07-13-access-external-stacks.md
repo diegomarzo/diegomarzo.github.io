@@ -94,13 +94,17 @@ To use one of the values, we just need tu use the Fn::ImportValue, so for exampl
   SubnetAdmin:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !ImportValue !Sub "${NetworkStackName}-VPCID"
+      VpcId: 
+        Fn::ImportValue:
+          !Sub "${NetworkStackName}-VPCID"
       CidrBlock: !FindInMap ['SubnetConfig', !Ref 'AWS::AccountId', 'SubnetAdminCIDR']
       AvailabilityZone: !Select [ 0, !GetAZs ]
       Tags:
         - Key: Name
           Value: !Sub ${AWS::StackName}-SubnetAdmin
 ```
+
+***Note***: Perhaps you are wondering why I didn't write something more compact, like: `VpcId: !ImportValue !Sub "${NetworkStackName}-VPCID"`. The reason is that, despite this is a correct CloudFormation function is not a valid YML.
 
 So our complete Cloud Formation Template, including the Subnet and the entry for the Route Table will look like:
 
@@ -118,8 +122,10 @@ Resources:
   SubnetAdmin:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !ImportValue !Sub "${NetworkStackName}-VPCID"
-      CidrBlock: 10.0.10.0/24
+      VpcId: 
+        Fn::ImportValue: 
+          !Sub "${NetworkStackName}-VPCID"
+      CidrBlock: !FindInMap ['SubnetConfig', !Ref 'AWS::AccountId', 'SubnetAdminCIDR']
       AvailabilityZone: !Select [ 0, !GetAZs ]
       Tags:
         - Key: Name
@@ -130,7 +136,9 @@ Resources:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref SubnetAdmin
-      RouteTableId: !ImportValue !Sub "${NetworkStackName}-PublicRouteTable"
+      RouteTableId: 
+        Fn::ImportValue:
+          !Sub "${NetworkStackName}-PublicRouteTable"
 ```
 
 And that is all!!! Enjoy your infrastructure!!!
