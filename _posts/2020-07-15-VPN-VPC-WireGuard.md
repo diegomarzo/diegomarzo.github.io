@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Setting up WireGuard in a EC2 Machine to create a VPN with your VPC
 ---
 So you already have a **VPC** that has been created by AWS for your, then you have created some **Subnets** there, and then you have an **Internet Gateway** in your VPC and you have connected some of your networks with your **route tables**.
