@@ -1,6 +1,6 @@
 ---
 published: false
-title: VPN with WireGuard in an EC2 Instance to provide access to its VPC
+title: Bastions EC2 Instance to provide access to VPC private areas
 ---
 What is a Bastion Machine? Appart from a very fancy name, using simple words, a Bastion Machine is an machine that lives in a public subnet, being accesible from outside and will be used by the people to SSH, and once they are there, they can jump between the different elements of the VPC.
 
