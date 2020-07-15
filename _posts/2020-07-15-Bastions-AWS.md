@@ -177,25 +177,35 @@ Outputs:
 Connect to the bastion:
 
 * You need to protect the key file, with wider permission will be ignored
+
 `$> chmod 400 dev-fk.pem`
 
 * Add the key
-```$> ssh-add -K dev-key.pem
+
+```
+$> ssh-add -K dev-key.pem
 Identity added: dev-key.pem (dev-key.pem)
 ```
 
 * Check is there
-```$> ssh-add -L
+
+```
+$> ssh-add -L
 ssh-rsa AA..................... dev-key.pem
 ```
 
 * Now connect!!!  NOTE THE **-A**
+
 `$> ssh -A ubuntu@THE_PUBLIC_BASTION_IP`
 
-#Now JUMP to the Private Instance
+* Now JUMP to the Private Instance
+
 `ubuntu@ip-10-0-10-80:~$ ssh ubuntu@THE_PRIVATE_IP_OF_THE_APP`
 
-We are done now! You can 
+
+**We are done now!!!!**
+
+--
 
 Imagine how film-like sound a conversation like the following:
 
