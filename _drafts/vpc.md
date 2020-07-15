@@ -161,11 +161,51 @@ We are almost done!
            !Sub "${AdminNetworkStackName}-SubnetAdmin"
            
 Outputs:
-  PrivateEC2InstanceId:
+  AppEC2InstanceId:
     Description: App EC2 Instance Id
     Value: !Ref AppEC2Instance
-  PrivateEC2IP:
+  AppEC2IP:
     Description: App EC2 Private IP 
     Value: !GetAtt ["AppEC2Instance", "PrivateIp"]
 ```
 
+**NOTE**: Since you are going to access to this servers from the Bastion you will need to activate **SSH Agent forwarding** so your key goes with you when doing the ssh.
+
+Connect to the bastion:
+
+* You need to protect the key file, with a wider permission will be ignored
+`$> chmod 400 dev-fk.pem`
+
+* Add the key
+```$> ssh-add -K dev-key.pem
+Identity added: dev-key.pem (dev-key.pem)
+```
+
+* Check is there
+```$> ssh-add -L
+ssh-rsa AA..................... dev-key.pem
+```
+
+* Now connect!!!  NOTE THE **-A**
+`$> ssh -A ubuntu@THE_PUBLIC_BASTION_IP`
+
+#Now JUMP to the Private Instance
+`ubuntu@ip-10-0-10-80:~$ ssh ubuntu@THE_PRIVATE_IP_OF_THE_APP`
+
+We are done now! You can 
+
+Imagine how film like sound a conversation like the following:
+
+```
+- Commander, I need to access the bastion.
+
+- And from there you will be able to jump into the private net?
+
+- I think so, wish me luck Sir...
+
+- Corporal!!! You forgot the Agent Forwarding!!!!
+
+- Aaaarrrgggggg
+```
+
+Some american flag, some fire and explosions... 
