@@ -39,9 +39,9 @@ So, lets explain a bit what we are going to do, and then we will do it all.
 
 2) We are going to configure the client connection to make sure it will be able to access the VPC elements (this is as simple as providing a private IP that is allowed to access the other servers)
 
-3) We will install the client in our laptop.
+3) We will install the client in our laptop, configure the tunnel
 
-4) Optional Step, we are going to set up the client in our Android Phone, simply because it is amazinly simple.
+4) We will update our security group to allow connections from our UDP Port
 
 ## Install WireGuard in our Bastion Server
 So, first of all we are going to connecto to the bastion server (check previous post if you do not have it, but basically it is just create an instance in the VPC where we have access to the Internet Gateway and we are allowed to do SSH to)
