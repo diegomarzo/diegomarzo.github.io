@@ -1,38 +1,171 @@
 ---
 published: false
+title: VPN with WireGuard in an EC2 Instance to provide access to its VPC
 ---
----
-published: false
----
+What is a Bastion Machine? Appart from a very fancy name, using simple words, a Bastion Machine is an machine that lives in a public subnet, being accesible from outside and will be used by the people to SSH, and once they are there, they can jump between the different elements of the VPC.
+
+Once you are inside the Bastion Machine you have an internal IP, so you can excecute commands from there, for example, you can use scripts to deploy a service of yours.
+
+This machine, obviously, needs to be properly secured, we are going to do 2 things, create a Security Group, pretty heavy around it, and also will force the usage of Certificate Authentication, so no ugly eyes are around us.
+
+## Main diagram
+So lets see in a diagram what do we have now
+
+![image](/images/Bastion.png)
+*VPC Ready to get accessed from the outside world*
+
+So, lets explain a little bit what we have:
+* Our VPC, with a CIDR of 10.0.0.0/16
+* A Subnet called Subnet 1 that is private, without access to the internet, with a CIDR of 10.0.0.0/24
+* An administrative subnet, with internet access, it has a CIDR of 10.0.100.0/24
+* A security group that control the access: Admin Security Group
+* A EC2 instance that will be the bastion machine
+
+## Admin Security Group
+Then there are 1 security groups, marked in RED, the SuperUser administrative security group, in my mind this is the security group that hold information about the super users that will be able to access this machine. How I have it configured is this way:
+
+```
+  SecurityGroupSSHSuperuser:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: "Administrative security group, allow access from Static superuser ip to SSH"
+      GroupName: SuperuserSSHSecurityGroup
+      VpcId: 
+        Fn::ImportValue: 
+          !Sub "${NetworkStackName}-VPCID"
+      SecurityGroupIngress:
+        - Description: "Access to SSH"
+          IpProtocol: "tcp"
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !FindInMap ['IPsPerSecurityGroup', 'AdminDiego', 'allowedCidrIp']
+```
+
+Where AdminDiego and the CIDR IP contains my external public IP (www.whatsmyip.com to see your Public IP)
+
+So, if we recover our last [post](https://diegomarzo.github.io/access-external-stacks/) and we will add the security group we created there along with an output section, since we are going to import the stacks in the VPN Host creation:
+
+```
+Outputs:
+  AdminSubnet: 
+    Description: Admin subnet ID
+    Value: !Ref SubnetAdmin
+    Export:
+      Name: !Sub "${AWS::StackName}-SubnetAdmin"
+  SuperuserSecurityGroup:
+    Description: Superuser Security Group ID
+    Value: !Ref SecurityGroupSSHSuperuser
+    Export:
+      Name: !Sub "${AWS::StackName}-SuperuserSecurityGroup"
+```
+
+***You can also have all together, but I rather prefer to have the instance separate, so in case of errors I can remove the stack super easily without touching anything else***
 
 
+## EC2 Instance, the BASTION (how fancy it sounds!)
 
-2) Access to VPC using a VPN with EC2 & CloudFormation
+Now, lets go and work on it!
 
-There are several reason why you could want to access VPC private component, for example, you do not want anybody to access your DEV enviroment, or for example, here is a section of your system that you want to restrict access.
+1) Create our EC2 Instance in our Cloud Formation Template.
 
-Pre-requisites:
-We are going to use as a base our existing cloud formation template that can be find here: [link to post that has external elements in the stack]
+**Important**, as you can see I'm using a Key-Pair certificate that I created first, and then I can use it for my user. To create a Key-Pair:
+ `E2 -> Network & Security -> Key Pairs -> Create key pair`
+ 
+ 
+```
+AWSTemplateFormatVersion: '2010-09-09'
+Description:  VPN Instance configuration
 
-*Note*: This cloud formation template has an output section we will use in this one with the VPC, the Route Table and the Internet Gateway.
+Parameters:
+  
+  NetworkStackName:
+    Description: Main network stack
+    Type: String
+    Default: dev-network-frankfurt
+  
+  AdminNetworkStackName:
+    Description: Main administrative network stack
+    Type: String
+    Default: dev-administrative-network-frankfurt
+  
+  ECSInstanceAMI:
+    Type: AWS::EC2::Image::Id
+    Default: ami-0b90a8636b6f955c1
+    Description: An AMI for the relevant region for ECS 
 
-A common solution for this is to configure a VPN, and then provide access to that VPN to certain users. And this that sounds pretty straight forward it is a bit painful in AWS. 
+Resources:
 
-***Yes, there is a Client VPN, but it is not the easiest thing to set up, and it is not the cheapest way either, for example having a client endpoint active cost money (10 cents per hour) + you need to pay for connections (5 cents per hour), so just having a VPN endopoint for you, without using it is like 2.40$ every day. So not so cool.***
+BastionEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ECSInstanceAMI
+      KeyName: dev-fk
+      InstanceType: t3a.nano
+      SecurityGroupIds:
+        - Fn::ImportValue: 
+            !Sub "${AdminNetworkStackName}-SuperuserSecurityGroup"
+      SubnetId:
+         Fn::ImportValue: 
+           !Sub "${AdminNetworkStackName}-SubnetAdmin"
 
-First lets create the Network infrastructure:
+  VPNElasticIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref VPNHostEC2Instance
 
+Outputs:
+  VPNHost:
+    Description: VPN Host EC2 Instance
+    Value: !Ref VPNHostEC2Instance
+  VPNHostPrivateIPAddress:
+  	Description: VPN Private IP Address
+    Value: !GetAtt ["VPNHostEC2Instance", "PrivateIp"]
+  VPNHostIPAddress:
+    Value: !GetAtt ["VPNHostEC2Instance", "PublicIp"]
+```
 
+Considerations:
+* I'm using the cheapest instance I could find, t3a.nano, and it works fine for this task, at least considering it is for my dev environment.
+* AMI: I'm using Ubuntu 20 in Frankfurt Region, I recommend you follow my pattern and save it into a parameter
+* We need to have a ElasticIP associated to the instance to access to it
+* Outputs: We are publishing the the EC2 Instance reference, the Public IP and the Private IP
 
-We are going to use OpenVPN to set up our VPN Host and we will see how to configure client access to it.
+* Since your server is secured by Key-Pair, you can, for testing, update your security group Ingress to something like the following:
 
+```
+      SecurityGroupIngress:
+        - Description: "Allow all ingress traffic"
+          IpProtocol: "-1"
+          CidrIp: 0.0.0.0/0
+```
 
+2) Connect to our instance:
 
-*Note*: Another option is to use AWS LightSail and the cheapest instance (3.5$/Month), the bad thing is that it cannot be automatised with CloudFormation, so we lose the possibility to use IaC and if we need to connect it to the VPC you require a VPC Peering (There is no charge for setting up or running a VPC peering connection. Data transferred across peering connections is charged at $0.01/GB for send and receive, regardless of the Availability Zones involved.)
+`ssh -i ~/.ssh/dev-fk.pem ubuntu@THE_PUBLIC_IP`
 
+Note that our AMI is Ubuntu, so the User is `ubuntu`, if you are using for example AWS Amazon Linux then the user will be `ec2-user`
 
+We are almost done!
 
+3) To check that all is working fine create an aditional Instance in one of the other Subnets to see how you can access to it from your bastion and how you cannot access to it from the outside world, since it doesn't have a public IP.
 
+```
+  AppEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref ECSInstanceAMI
+      KeyName: dev-fk
+      InstanceType: t3a.nano
+      SubnetId:
+         Fn::ImportValue: 
+           !Sub "${AdminNetworkStackName}-SubnetAdmin"
+           
+Outputs:
+  PrivateEC2InstanceId:
+    Description: App EC2 Instance Id
+    Value: !Ref AppEC2Instance
+  PrivateEC2IP:
+    Description: App EC2 Private IP 
+    Value: !GetAtt ["AppEC2Instance", "PrivateIp"]
+```
 
-
-3) VPN using OpenVPN and AWS LightSail, cheap machines for everyone!
