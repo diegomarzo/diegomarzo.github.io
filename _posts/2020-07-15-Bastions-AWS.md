@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Bastions EC2 Instance to provide access to VPC private areas
 ---
 What is a Bastion Machine? Apart from a very fancy name, using simple words, a Bastion Machine is a machine that lives in a public subnet, being accessible from outside and will be used by the people to SSH, and once they are there, they can jump between the different elements of the VPC.
@@ -211,4 +211,4 @@ Imagine how film-like sound a conversation like the following:
 - Aaaarrrgggggg
 ```
 
-Some American flag, some fire, explosions... 
+Some American flag, some fire, explosions...
