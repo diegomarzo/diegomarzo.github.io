@@ -19,6 +19,6 @@ But the important thing is it includes the SSD Storage, 20Gb, that is 2.40$ with
 
 (All calculations have been made using https://calculator.aws)
 
-I really think makes sense to have LightSail instances on things you do not need to worry too much about them, like tools and services, lets say Jenkins, Nexus...
+In my opinion I think that makes a lot of sense to have LightSail instances on things you do not need to worry too much about them, like tools and services, lets say Jenkins, Nexus, Wordpress or any other thing you want to put there and use as a service.
 
 
