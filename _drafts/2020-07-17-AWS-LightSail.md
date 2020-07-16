@@ -12,6 +12,7 @@ From the AWS page:
 LightSail is not one of the services I see more around, and I need to say it has a bunch of things that obviously can push you back, first of all, is the interface... When you clicked on the LightSail icon, it opens a new tab/window and you can see how it looks... absolutely disconnected to the AWS common interface, feels like the idea of Amazon of "Simplicity of Usage" is to put a funky interface with a colourful robot.
 
 ![image](/images/ls/robot.png)
+*The robot, we need to love him*
 
 Said this, I like it, I like colours, and I like the robot, and the space rocket as well, but I don't like how they messed up with Roles and Account, it is really bad, first, you cannot change your role in LightSail, to do it, you need to close it, go to the main AWS Console, change it there and reopen the window from the standard AWS Console. Guys! Come on! Why I cannot switch the roles from there?, and by the way, if you change your role in your AWS Console, LightSail says, "Ey, I need to reconnect!" :(
 
@@ -24,6 +25,7 @@ I guess you will be thinking, Diego, and why the heck you are using this?
 Simple, I love the Robot... Well, and because the cheapest server in the region I have my stuff, Frankfurt cost 3.5$ in a CPU that is equivalent to a t2.nano (what cost monthly 4.82$, to be fair you can get a bit better CPU with t3a.nano and it is cheaper, like 3.8$). 
 
 ![image](/images/ls/pricing.png)
+*And this is what I really love about LightSail*
 
 But the important thing is that includes:
 
@@ -43,6 +45,7 @@ LightSail seems like a complete apart Cloud Provider, like I said at the beginni
 It is much simpler, provides you with basic Network Functionality, Load Balance, Storage Disks and Event Data Bases for a very competitive price. And for this reason, no CloudFormation, no VPC, no heavy network handling... 
 
 ![image](/images/ls/other-options.png)
+*Additional services offered*
 
 If you need to connect to some of your resources, you need to create a VPC Peering, this peering is for free (and you do not pay to keep it) and you will only need to pay for the data transfer between your VPC and the LightSail system.
 
