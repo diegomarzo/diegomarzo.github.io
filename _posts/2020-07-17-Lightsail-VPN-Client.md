@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Setting up WireGuard client in a LightSail instance
 ---
 In this post, we will see how we can create a cheap Lightsail instance and then connected to our network using our WireGuard VPN Client. This way we will be able to run tooling applications very cheap and they will be connected to our Network, we will use this one as a template to then install Jenkins, we will see this in another post.
