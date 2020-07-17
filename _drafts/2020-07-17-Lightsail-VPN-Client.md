@@ -82,7 +82,10 @@ sudo install -o root -g root -m 600 wg0-client.conf /etc/wireguard/wg0.conf
 ```
   
 ## Enabling WireGuard Client
-  sudo systemctl enable wg-quick@wg0.service
+  
+```
+sudo systemctl enable wg-quick@wg0.service
+```
   
 Restart your instance now with **sudo restart -h now**, you will be kicked out from the SSH connection, wait a bit and connect again. If you run **ifconfig** now you will see that the Virtual Network Interface of WireGuard has been created:
 ```
