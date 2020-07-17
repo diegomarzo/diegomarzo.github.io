@@ -98,4 +98,4 @@ A very good idea now, will be, just before starting to create Jenkins stuff, to 
 
 In LightSail Main page -> Select your instance -> Snapshots -> Create Snapshot
 
-
+The process took for me like 5 minutes more or less, so grab a cup of coffee!!
