@@ -9,14 +9,14 @@ We are using Lightsail but it is very easy to extrapolate and do the same in a E
 
 Now we are going to create a LS instance in our favourite (or more convinient) zone, in my case will be Frankfurt.
   
-[instance-creation](/images/ls/instance-selection.png)  
+![instance-creation](/images/ls/instance-selection.png)  
 *Creating an Ubuntu 18.04 instance in Frankfurt*
   
 ### Select a SSH key pair and select the instance plan
 
 In our case, our lovely 3.5$ instance will be good for us and pick a name: `Jenkins-Machine-Frankfurt` for example looks like a good one and press over Create Instance.
   
-[instance-cheap](/images/ls/pricing.png)
+![instance-cheap](/images/ls/pricing.png)
 *Cheap instances for every one*
   
 Now our instance will be created and a IP will be created for it, we do not need to worry too much about the fact it is an dynamic IP since we are going to use WireGuard to access to it and **IP Roaming** is an amazing thing.
