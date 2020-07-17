@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: Running Jenkins in a cheap Lighsail instance
 ---
 In this post we are going to create a Jenkins machine, instead of starting from the very scratch, we are going to use the machine we created and hooked up with Wire Guard in this post [post](https://diegomarzo.github.io/VPN-VPC-WireGuard/)
