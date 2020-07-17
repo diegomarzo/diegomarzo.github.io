@@ -3,6 +3,9 @@ published: false
 ---
 In this post we are going to create a Jenkins machine, instead of starting from the very scratch, we are going to use the machine we created and hooked up with Wire Guard in this post [link to the post]
 
+![logo](/images/jk/jenkins-logo.png)
+*Jenkins, a helpful fella*
+
 **Important note**: You do not need to have WireGuard, I'm using it because I want to have everything secured behind my VPN instead of doing manual IP restrictions in LightSail. WireGuard offers IP Roaming, so that way I don't need to worry about the network I'm in, the communication is always encrypted... You can also install Jenkins in a EC2 instance in your VPC, the instructions are pretty straight forward. We are using Ubuntu as operative system.
 
 ## First, Install Java 8
@@ -64,10 +67,31 @@ http://10.0.100.60:8080/
 
 Once you insert your administrative password a screen will show you the installation options for customize Jenkins:
 
+![logo](/images/jk/customize-plugins.png)
+*Customize plugins screen*
 
 From this point all will be really up to you, depending in your needs, you can add the plugins later on, so I will for the *Install suggested plugins*
 
 Once the plugins are installed you will be asked to create your personal admin user, and then all is ready to go!
 
+![logo](/images/jk/jenkins-ready.png)
+*Jenkins is ready now*
 
+**IMPORTANT NOTE**
+After the installation is completed I recommend to STOP jenkins in the server (CTRL+C) and re-start using this command:
 
+```nohup java -jar jenkins.war httpPort=8080 &```
+
+Why? Because if not, when you stop your SSH Jenkins will stop!!!
+
+To see the logs: 
+```
+tail -f nohup.out 
+```
+
+Now you can access the main screen of Jenkins in http://10.0.100.60:8080
+
+![logo](/images/jk/all-done.png)
+*Initial Jenkins screen*
+
+And that is all!
