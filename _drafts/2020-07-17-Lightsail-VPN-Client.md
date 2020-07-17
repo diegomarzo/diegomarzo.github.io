@@ -5,6 +5,10 @@ In this post, we will see how we can create a cheap Lightsail instance and then 
 
 *We are using Lightsail but it is very easy to extrapolate and do the same in an EC2 instance, but, usually, if the machines are inside the VPC we do not need to do anything extra here, but perhaps we need to access from there the tooling machine, in that case we can hook up the machine into WireGuard, but if you need this, usually means that **you should reconsider your Network Architecture** and perhaps the Lightsail machine should be an EC2 intance*
 
+> "If all you have is a hammer, everything looks like a nail."
+
+Careful and do not use a Golden Hammer
+
 ## Create a Lightsail instance 
 
 Now we are going to create an LS instance in our favourite (or more convenient) zone, in my case will be Frankfurt.
