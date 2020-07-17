@@ -94,4 +94,8 @@ Now you can access the main screen of Jenkins in http://10.0.100.60:8080
 ![logo](/images/jk/all-done.png)
 *Initial Jenkins screen*
 
-And that is all!
+A very good idea now, will be, just before starting to create Jenkins stuff, to create a SNAPSHOT of your LightSail instance:
+
+In LightSail Main page -> Select your instance -> Snapshots -> Create Snapshot
+
+
