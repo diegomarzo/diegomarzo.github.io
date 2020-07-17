@@ -1,35 +1,35 @@
 ---
 published: false
 ---
-In this post we will see how we can create a cheap Lightsail instance and then connected to our network using our WireGuard VPN Client. This way we will be able to run tooling applications very cheap and they will be connected to our Network, we will use this one as a template to then install Jenkins, we will see this in another post.
+In this post, we will see how we can create a cheap Lightsail instance and then connected to our network using our WireGuard VPN Client. This way we will be able to run tooling applications very cheap and they will be connected to our Network, we will use this one as a template to then install Jenkins, we will see this in another post.
 
-We are using Lightsail but it is very easy to extrapolate and do the same in a EC2 instance, but, since they are inside the VPC subnet already, it is a bit pointless unless, for some reason, the Subnet it is completely decoupled from the others or we need to do an extra security layer and make double sure that we only can access with the VPN.
+***We are using Lightsail but it is very easy to extrapolate and do the same in an EC2 instance, but, since they are inside the VPC subnet already, it is a bit pointless unless, for some reason, the Subnet it is completely decoupled from the others or we need to do an extra security layer and make double sure that we only can access with the VPN.***
 
 ## Create a Lightsail instance 
 
-Now we are going to create a LS instance in our favourite (or more convinient) zone, in my case will be Frankfurt.
+Now we are going to create an LS instance in our favourite (or more convenient) zone, in my case will be Frankfurt.
   
 ![instance-creation](/images/ls/instance-selection.png)  
 *Creating an Ubuntu 18.04 instance in Frankfurt*
   
-### Select a SSH key pair and select the instance plan
+### Select an SSH key pair and select the instance plan
 
 In our case, our lovely 3.5$ instance will be good for us and pick a name: `Jenkins-Machine-Frankfurt` for example looks like a good one and press over Create Instance.
   
 ![instance-cheap](/images/ls/pricing.png)
-*Cheap instances for every one*
+*Cheap instances for everyone*
   
-Now our instance will be created and a IP will be created for it, we do not need to worry too much about the fact it is an dynamic IP since we are going to use WireGuard to access to it and **IP Roaming** is an amazing thing.
+Now our instance will be created and an IP will be created for it, we do not need to worry too much about the fact it is a dynamic IP since we are going to use WireGuard to access to it and **IP Roaming** is an amazing thing.
 
-Remeber we are using the Rolls Royce of VPNs!
+Remember we are using the Rolls Royce of VPNs!
   
-## Installing WireGuard in the new instace
+## Installing WireGuard in the new instance
   
 ```
  ssh -A ubuntu@PUBLIC_IP_OF_NEW_INSTANCE
 ```
   
-The first thing we are going to do will be install WireGuard Client in the Machine and set it up:
+The first thing we are going to do will be installed WireGuard Client in the Machine and set it up:
   
 ```
 $ sudo add-apt-repository ppa:wireguard/wireguard
@@ -37,13 +37,13 @@ $ sudo apt update
 $ sudo apt install wireguard
 ```
  
-***Note*** If you are asked about new versions available you can install the new ones or keep yours, I *kept the local version currenty installed*.
+***Note*** If you are asked about new versions available you can install the new ones or keep yours, I *kept the local version currently installed*.
 
 ## Creating Client configuration files in the WireGuard Server
 
 Now we have 2 main options, we can create the keys from our client and then add into the server OR we can go now to our WireGuard server, create there the configuration file for the client, and store it, and this is what I will do:
   
-Open new terminal, access your WireGuard server with SSH and add a new client:
+Open a new terminal, access your WireGuard server with SSH and add a new client:
 ```
 $ ssh -A ubuntu@IP-FOR-WIREGUARD-SERVER
 ...
@@ -70,7 +70,7 @@ Endpoint = <PUBLIC-IP-OF-SERVER>:60005
 AllowedIPs = 10.0.0.0/16
 ```
   
-Now, we copy this and we go to our client again. The best thing will be create a file in our home directory called `wg0-client.conf` and we store the information there.
+Now, we copy this and we go to our client again. The best thing will be to create a file in our home directory called `wg0-client.conf` and we store the information there.
   
   
 ## Install configuration files in your new client instance
@@ -123,7 +123,7 @@ Main PID: 834 (code=exited, status=0/SUCCESS)
   
 ## Commands to control the WireGuard client
   
-Enables the Interface after restart
+Enables the Interface after the restart
 ```
 $ sudo systemctl enable wg-quick@wg0.service 
 ```
@@ -164,7 +164,7 @@ And from YOUR own laptop, if you are connected to the VPN you should be able to 
   
 ## Securing the Instance
 
-The next step now will be to close down all access to our instance except from the IP of our server, this way, all the communication and traffic needs to be done within the VPN
+The next step now will be to close down all access to our instance except the IP of our server, this way, all the communication and traffic needs to be done within the VPN
   
 ![general-rule](/images/ls/rule-open-ports.png)  
 *General rule, note the port range*
@@ -185,6 +185,6 @@ ListenPort = 60005
 ...
 ```
 
-So, with this we are done! Our LightSail Instance is secured and hooked up to our VPN!
+So, with this, we are done! Our LightSail Instance is secured and hooked up to our VPN!
 
 ![image](/images/ls/ls-logo.png)
