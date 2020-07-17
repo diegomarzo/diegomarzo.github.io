@@ -3,7 +3,7 @@ published: false
 ---
 In this post, we will see how we can create a cheap Lightsail instance and then connected to our network using our WireGuard VPN Client. This way we will be able to run tooling applications very cheap and they will be connected to our Network, we will use this one as a template to then install Jenkins, we will see this in another post.
 
-***We are using Lightsail but it is very easy to extrapolate and do the same in an EC2 instance, but, since they are inside the VPC subnet already, it is a bit pointless unless, for some reason, the Subnet it is completely decoupled from the others or we need to do an extra security layer and make double sure that we only can access with the VPN.***
+*We are using Lightsail but it is very easy to extrapolate and do the same in an EC2 instance, but, usually, if the machines are inside the VPC we do not need to do anything extra here, but perhaps we need to access from there the tooling machine, in that case we can hook up the machine into WireGuard, but if you need this, usually means that **you should reconsider your Network Architecture** and perhaps the Lightsail machine should be an EC2 intance*
 
 ## Create a Lightsail instance 
 
