@@ -29,10 +29,9 @@ So, more or less I tried to explain what is Serverless with some words, but I re
 The technical stack we will use in the task will be the following:
 
 * AWS: Cloudformation, Lambda, DynamoDB, EventBridge, API Gateway
-* Kotlin: Amazon API V2
-* Gradle with Kotlin DSL
+* Kotlin and Gradle: We are going to use the Amazon API V2 for Java
 * Serverless Framework, check this [post] for an informal presentation
-* GithubActions for CI and CD
+* GithubActions for CI and CD. We will dedicate a full post about how to make it work with all our tech stack, I suffered a lot, but I achieved excelence :D :D :D :D
 
 And the plan is to create a small application to show up how to wire everything up:
 
@@ -54,7 +53,7 @@ Perhaps you are thinking, dude, what the hell? Why Kotlin? Why JVM? Everybody is
 
 I know is not the most common one, but it is the language by far I feel more comfortable working with, I also like Gradle and I write it using Kotlin DSL, so why not?
 
-Cold start time, it is a b$tch
+Cold start time, it is a b$tch (Lupita just looked at me and in her big eyes I can see wrath... and kindness at the same time, she is lovely).
 
 
 
@@ -73,11 +72,7 @@ One of the biggest pain points when working with Serverless Architecture, actual
 
 Serverless Framework takes care of a lot of things for you, and you will need to worry, almost, about coding, I will create a proper post about Serverless Framework because I think it really worth it. In this post I give a small introduction to it [post]
 
-### GithubActions for CI and CD
-[Picture of GithbActions]
-I have my code in Github, and Github now offers GithubActions, free for Public repositories and a bunch of ours for Private ones.
 
-And they are fantastic, the thing I like the most is that they are already in Github that is something I'm using already and that it is very easy to use, specially if fight for a bit with it and you understand how it works or you read a post like this one [post] where I explain how I set up and configured my project.
 
 
 
@@ -92,38 +87,45 @@ And they are fantastic, the thing I like the most is that they are already in Gi
 
 ## Serverless Framework, a very informal presentation
 
+[SERVERLESS ICON HERE!]
+
 We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework, I would like to explain a bit why and the benefits it bring us.
 
 >> Serverless Framework Open Source lets you develop and deploy serverless applications to AWS, Azure, GCP & more
 
-So, going back to our introduction, I was saying that:
+One of the biggest pain points when working with Serverless, actually I could even say, with the Cloud in general, is everything but coding, this is: Deployment, Testing and Logging, Management of the resources...
 
-*One of the biggest pain points when working with Serverless, actually I could even say, with the Cloud in general, is everything but coding, this is: Deployment, Testing and Logging, Management of the resources...*
-
-Apart from this, some things that are "basic" when you are coding a typical system, are painful as hell working with Serverless Architectures, at least in AWS, so for example, imagine you want to do something like:
+Apart from this, some things that are "basic" when you are coding a typical system, are painful as hell working with Serverless Architectures, at least in AWS, that is what I really know, so for example, imagine you want to do something like:
 
 * Create an Endpoint that expects a GET call and from a CustomerId parameter in the Path Params, answer with something, you also want typical logging capabilities.
 
-So, this thing that it is a very common and simple task, that you code like in 5 or 10 lines requires:
+So, this very common and simple task, that you code like in 5 or 10 lines requires:
+
  * The Lambda function: No surprise here
  * The API Gateway: You need to connect the HTTP GET with the param
  * Connect the API Gateway to the Lambda Funcion
  * A Cloud Watch Logging Group linked to the Lambda Function
- * The permissions in place to deploy and run all this stuff
+ * The permissions in place to be able to deploy and run all this stuff
 
 If you do it *Cowboy Style*, in the console clicking here and there, then you are going to suffer, but if you want to do it in CloudFormation, you need to remember ALL the things you need to configure, do it right and also you will need to script how you are going to upload the code, this is a S3 bucket, so at the end, apart form the CloudFormation you will need to end up Scripting a CLI publisher of the code...
 
-How, it sounds pretty harsh right? Because certanly it is, it is very hard, and very annoying, specially because they promised you this:
+How, it sounds pretty harsh right? Because certanly it is, it is difficult and annoying, specially because they promised you this:
 
 >> Serverless is the native architecture of the cloud that enables you to shift more of your operational responsibilities to AWS, increasing your agility and innovation. Serverless allows you to build and run applications and services without thinking about servers. It eliminates infrastructure management tasks such as server or cluster provisioning, patching, operating system maintenance, and capacity provisioning
 
-It sounds soooo nice, but... what about the bloody DevOps???? You are saving in the infrastructure maintenance but the DevOps work simply went to the bloody moon! Tooling, Tooling and more Tooling!!! You cannot work *Cowboy Style* and use AWS Console! It is pointless! If you have 3 environments to manage: Prod, Test and Dev, for exmaple, what are you going to do? Go environment by environment clicking buttons, checking squares and filling text boxes? NO! You need to Automatise the stuff! And then, that beautiful quote I mentioned up there it is simply a ***LIE***, a huge one!
+It sounds soooo nice, but... what about the bloody DevOps???? You are saving in the tasks of infrastructure and maintenance but the DevOps work simply went up to the bloody moon! 
 
-But then... the guys created Serverless Framework, where I'm a very small contributor but proud of it, and everything is peace:
+You will need tooling, tooling and more tooling!!! You cannot work *Cowboy Style* and use AWS Console! It is pointless! If you have 3 environments to manage: Prod, Test and Dev, for exmaple, what are you going to do? Go environment by environment clicking buttons, checking squares and filling text boxes? NO! You need to Automatise the stuff! And then, that beautiful quote I mentioned up there it is simply a bit pointless (and serverless).
+
+But then... the guys created Serverless Framework, where I'm a small contributor, but proud of it, and everything is peace, you just to write:
 
 `sls deploy`
 
-This is what you need, and all you stuff goes straight to the Cloud (with capitals), your Lambdas are createad, your Cloud Watch loggin groups, your API Gateways, EVEN your DynamoDB tables, your indexes, ANYTHING you need, because, apart from the main part of our `serverless.yml` configuration file, that is the only file you need to touch apart of your typical code,  you can add pure CloudFormation stuff.
+This is all you need, and your stuff goes straight to the Cloud (with capitals), your Lambdas are createad, your Cloud Watch log groups, your API Gateways, EVEN your DynamoDB tables, your indexes, ANYTHING you need, because, apart from the main part of our `serverless.yml` configuration file, that is the only file you need to touch apart of your typical code, you can add pure CloudFormation stuff.
+
+
+
+
 
 
 
@@ -150,8 +152,86 @@ Kotlin && AWS in Serverless... We can all be amigos, right?
 
 
 
+
+
+
 ## Continuous Integration and Deployment with Github Actions
-[Small explanation of Continuous Integration and Continuous Deployment]
+
+## What is CI/CD and why it is important?
+
+Continous Integration is the ability to have a non stop building mechanism in our repositories, so basically, when we commit some code, it gets compile, tested and built, apart from other things like Lint Int, test Coverage checks, documentation generation...
+
+Why it is imporatant? Because you can visually see that the code you have in your master branch is kosher, so you can trust it and if you get it you can work on it and you are sure there are no problems. If you have been playing this development game for a while, I'm sure you have been involved in the following scenario:
+
+```
+- Ey NAME-DEVELOPER-1, the code doesn't compile
+- In my machine it does NAME-DEVELOPER-2
+- I don't mind ND1, have you commited all the libraries?
+- Ups, I forgot to add this one!
+```
+
+This was a pretty quick resolution, I remember we had a White and Black Cowboy Hat in the office that we wear if we f&cked up.
+
+These days, if you have this kind of problems is because you want, you can have CI set up in place, and when someone creates a `pull request` Github won't allow you to merge if the code doesn't build, and then, when you merge into `master` it will build again.
+
+And you can go one step ahead, and do something like, if you merge into `master` then we are going to automatically `deploy`, even production, so that way, you make sure you have properly tested all.
+
+This is called Continuos Deployment, and actually, it could sound scary at first glance, but it is a practice I like and I believe about.
+
+## Github Actions
+
+There are a big bunch of tools for CI/CD, just to name some we have Jenkins (and you can check in this post how to even deploy it for you using a cheap Lightsail instance), TeamCity, Travis, CircleCI (that I actually like a lot) and the one I'm using: Github Actions
+
+Why I'm using GitHub Actions?
+
+Well I think the main reason, is that I have my code in GitHub, and the integration with GitHub actions it is delightful, absolutely Seamless.
+
+They are free for Public Repositories (like the one I'm using for this Example Task) and if your repos are private, you have 2000 minutes of processing monthly for free (and this is actually pretty decent free tier).
+
+They are really EASY to use, specially if you fight a bit and understand how they work.
+
+In the following example we are going to see hoy I set up for our project the `Pull Request` and the `Push to Master` Github Actions.
+
+### Considerations
+
+In GitHubActions you create 
+
+### The Pull Request workflow
+
+In order to make sure our Pull Requests are healthy, we are going to make sure the project build, this is the script:
+
+```
+name: CustomerAPI Pull Request
+
+on:
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew clean build
+```
+
+
+
+### The Push to Master workflow
+
+[Picture of GithbActions]
+I have my code in Github, and Github now offers Github Actions, free for Public repositories and a bunch of hours for Private ones.
+
+And they are fantastic, the thing I like the most is that they are already in Github that is something I'm using already and that it is very easy to use, specially if fight for a bit with it and you understand how it works or you read a post like this one [post] where I explain how I set up and configured my project.
 
 [Explain here HOW Github Actions works]
 
