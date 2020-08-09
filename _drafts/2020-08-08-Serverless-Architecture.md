@@ -1,21 +1,63 @@
 ---
 published: false
 ---
-In this post I would like to share my thoughts about what I think is the next step in system architecure. It is not really a future thing, it is something that is with us already, for some years, but what is true is most of the companies are still not working on it, or, lets say, they are sticking to the systems they have at the very moment, so change it is a bit difficult, imagine, a lot of companies are not even using the cloud, or ***The Cloud***, like that, in bold and italics, feels like deep stuff.
+Today I want to start a small set of post, very "How To" oriented about what I have been working in the last months and really make me think that is the way to architect systems from now on: ***Serverless Architecture***. 
+
+Serverless applications have been between us for a while already, but lately I have noted and big increase in the number of projects the people is working on, the number of posts you can find around, and in general I have the feeling that is getting a lot of traction.
+
+But, what are Serverless Applications?
+
+Apart from the obvious answer of *"An application that run without a server!"* that looks like the answer a colleague of your is going to give for trolling you a bit, the reality is that they run on a server, but, and here is the important thing, it is a server that you (almost) do not need to worry about, because your Cloud provider will be the responsible of provisioning, scaling and maintaining it, you just need to worry about the code.
 
 [LEGENDARY PICTURE OF A CLOUD]
 
-This post won't be like super acurate or anything like that, is more of some kind of brain dump, and I think it is a good idea because I'm preparing a bunch of post about, 100% technical, with examples and with How To's about serverless, because it is precisely what I'm working on at the very moment.
+And why is this so important? Well, for me this is the big game changer in system architecture I have seen lately, because it helps with, or removes completely, one of the most difficult things you need to consider is to estimate the charge of your system, and then provision accordingly. Overprovisioning will cost you money, and doing a very tight provisioning will end up jeopardizing your system.
+And thre is something even more interesting to note, if you have services in your system with a very small amount of charge, or even no charge for some periods of time, you are paying for them, no matter what.
 
-For me, Serverless is the biggest game changer in System Architecture I have seen in a big while, but still I need to say it is not mature, I do not want to lie, sometimes I end up my day wanting to bang my head, but slowly you end up swiming through all the difficulties and finding your way and the bunch of technologies you really feel comfortable with. 
+Imagine for example you have some microservices dealing with different payment methods, some of them are local to some markets of yours, that are in use in certain time of the day, and then the rest of the day the usage is non existant. What do you do? 
 
-My tech stack at the moment it is a bit weird, but I'm feeling more and more confortable with it:
+***You go Serverless and when nobody is using them you do not pay.***
 
-* AWS
-* Kotlin
-* Gradle
-* Serverless Framework
+Because I think this is one of the most interesting points of Serverless, is that you pay when you compute, and when you do not compute you **do not pay**.
+
+At the same time, if you have some unexpected peak, your system will be able to cope with it, no problem at all, because if you are using autoscaling you still need to spin your service, and you will have a time window where you won't be able to handle.
+
+## Our Technical Task
+
+So, more or less I tried to explain what is Serverless with some words, but I really prefer to explain the things with code and examples. And this is what is going to be this set of posts.
+
+The technical stack we will use in the task will be the following:
+
+* AWS: Cloudformation, Lambda, DynamoDB, EventBridge, API Gateway
+* Kotlin: Amazon API V2
+* Gradle with Kotlin DSL
+* Serverless Framework, check this [post] for an informal presentation
 * GithubActions for CI and CD
+
+And the plan is to create a small application to show up how to wire everything up:
+
+[PICTURE OF THE DIAGRAM]
+
+
+As you can see we have 2 **Lambda Functions**, the first one, Lambda 1, will handle POST calls from **API Gateway** with the information of a customer, Name and Email, lets say, something basic.
+
+Lambda 1 will be responsible of creating a new entry in **DynamoDB** if the customer is not registered already with an auto generated UUID and it will publish an event in **EventBridge** informing about the Registering of the new player. If the player was already registered, the lambda will return the existing UUID for the player, since we want our little system to be **Idempotent**. We will use **Transactions** for **DynamoDB** and we will make sure there is no double instertions.
+
+### Serverless is not just *Lambda Functions*
+
+Serverless is the concept of running systems without specific servers, so, DynamoDB, for example is a Serverless Database, you do not need to worry about provisitioning it (so you do not need to worry about OVER or UNDER provisioning) and the most important thing, you pay for what you use. The same applies to EventBridge, it is serverless, you do not need to provision anything.
+
+We will go into more details, about these services in the next posts!
+
+***Note***
+Perhaps you are thinking, dude, what the hell? Why Kotlin? Why JVM? Everybody is using Node and Python!
+
+I know is not the most common one, but it is the language by far I feel more comfortable working with, I also like Gradle and I write it using Kotlin DSL, so why not?
+
+Cold start time, it is a b$tch
+
+
+
 
 ### AWS
 [PICTURE OF AWS]
@@ -37,9 +79,6 @@ I have my code in Github, and Github now offers GithubActions, free for Public r
 
 And they are fantastic, the thing I like the most is that they are already in Github that is something I'm using already and that it is very easy to use, specially if fight for a bit with it and you understand how it works or you read a post like this one [post] where I explain how I set up and configured my project.
 
-The idea of this set of Post will be to create a small test application, using my favourite stack, and it looks like the following:
-
-[PICTURE OF THE DIAGRAM]
 
 
 
@@ -76,7 +115,7 @@ If you do it *Cowboy Style*, in the console clicking here and there, then you ar
 
 How, it sounds pretty harsh right? Because certanly it is, it is very hard, and very annoying, specially because they promised you this:
 
->> With Amazon Lambda and Serverless approach you will save a lot of time because you only need to worry to code your functionality and you won't need to worry about provisioning servers and taking care of infrastructure because it auto scale!!!
+>> Serverless is the native architecture of the cloud that enables you to shift more of your operational responsibilities to AWS, increasing your agility and innovation. Serverless allows you to build and run applications and services without thinking about servers. It eliminates infrastructure management tasks such as server or cluster provisioning, patching, operating system maintenance, and capacity provisioning
 
 It sounds soooo nice, but... what about the bloody DevOps???? You are saving in the infrastructure maintenance but the DevOps work simply went to the bloody moon! Tooling, Tooling and more Tooling!!! You cannot work *Cowboy Style* and use AWS Console! It is pointless! If you have 3 environments to manage: Prod, Test and Dev, for exmaple, what are you going to do? Go environment by environment clicking buttons, checking squares and filling text boxes? NO! You need to Automatise the stuff! And then, that beautiful quote I mentioned up there it is simply a ***LIE***, a huge one!
 
@@ -95,15 +134,6 @@ The idea of these posts will be to create a small test application, using my fav
 
 
 
-We will have 2 Lambda Functions, the first one, Lambda 1, will handle POST calls from API Gateway with the information of a customer, Name and Email, lets say, something basic.
-
-The Email only can be used once, so, if the player is not already registered, we will generate an UUID and then we store it and then we will publish an event in EventBridge informing about the Registering of the new player. If the player was already registered, the lambda will return the existing UUID for the player.
-
-Then we will have Lambda 2 what basically will listen to all the events and store them in a dynamo table, like in an event store.
-
-Remember, this is an example that is why the architecture used is in reality too complex, but we want to show API Gateway, Lambda, DynamoDB and EventBridge, all of them working together!
-
-And, all of this will be in one repository, since ALL the components are Serverless we do not need to worry about Scaling or provisioning, AWS will do for us!
 
 Pre-requisites for our Adventure:
 * AWS Account
@@ -206,4 +236,3 @@ jobs:
 [Explain ALL the lines]
 
 [Explain the Environmnet]
-
