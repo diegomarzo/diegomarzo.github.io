@@ -14,7 +14,7 @@ Careful and do not use a Golden Hammer
 
 Now we are going to create an LS instance in our favourite (or more convenient) zone, in my case will be Frankfurt.
   
-![instance-creation](/images/ls/instance-selection.png)  
+![instance-creation](/images/ls/instance-selection.png)
 *Creating an Ubuntu 18.04 instance in Frankfurt*
   
 ### Select an SSH key pair and select the instance plan
