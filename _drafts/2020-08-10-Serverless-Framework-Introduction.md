@@ -39,7 +39,5 @@ But then... the guys created Serverless Framework, where I'm a small contributor
 
 This is all you need, and your stuff goes straight to the Cloud (with capitals), your Lambdas are createad, your Cloud Watch log groups, your API Gateways, EVEN your DynamoDB tables, your indexes, ANYTHING you need, because, apart from the main part of our `serverless.yml` configuration file, that is the only file you need to touch apart of your typical code, you can add pure CloudFormation stuff.
 
-![serverless](/images/serverless/serverless.png)  
-
-Web -> https://www.serverless.com/
-
+![serverless-logo](/images/serverless/serverless-logo.png)  
+*https://www.serverless.com/*
