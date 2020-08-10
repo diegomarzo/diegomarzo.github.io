@@ -4,7 +4,7 @@ title: 'An introduction to Serverless Architecture, How-to''s'
 ---
 Today I want to start a small set of posts, very "How To" oriented about what I have been working in the last months and really make me think that is the way to architect systems from now on: ***Serverless Architecture***. 
 
-![legendary-cloud](/images/serverless/cloud.png)  
+![legendary-cloud](/images/serverless/cloud.png)
 *Legendary picture of a cloud*
 
 Serverless applications have been between us for a while already, but lately, I have noted and a big increase in the number of projects the people is working on, the number of posts you can find around, and in general, I have the feeling that is getting a lot of traction.
@@ -37,7 +37,7 @@ The technical stack we will use in the task will be the following:
 
 And the plan is to create a small application to show up how to wire everything up:
 
-![diagram](/images/serverless/diagram.png)  
+![diagram](/images/serverless/diagram.png)
 *Diagram of the system we are going to implement*
 
 
