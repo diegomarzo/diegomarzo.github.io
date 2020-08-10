@@ -48,12 +48,6 @@ Serverless is the concept of running systems without specific servers, so, Dynam
 
 We will go into more details, about these services in the next posts!
 
-***Note***
-Perhaps you are thinking, dude, what the hell? Why Kotlin? Why JVM? Everybody is using Node and Python!
-
-I know is not the most common one, but it is the language by far I feel more comfortable working with, I also like Gradle and I write it using Kotlin DSL, so why not?
-
-Cold start time, it is a b$tch (Lupita just looked at me and in her big eyes I can see wrath... and kindness at the same time, she is lovely).
 
 
 
