@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 title: 'Serverless Framework, a very informal presentation'
 ---
 We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework:
