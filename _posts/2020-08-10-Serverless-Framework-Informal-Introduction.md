@@ -2,7 +2,9 @@
 published: true
 title: 'Serverless Framework, a very informal presentation'
 ---
-We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework:
+We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework. In this post, we are going to see a very informal presentation about why I use the framework before we go and code stuff.
+
+What is Serverless Framework for?
 
 >> Serverless Framework lets you develop and deploy serverless applications to AWS, Azure, GCP & more
 
