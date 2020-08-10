@@ -9,7 +9,8 @@ But, what are Serverless Applications?
 
 Apart from the obvious answer of *"An application that run without a server!"* that looks like the answer a colleague of your is going to give for trolling you a bit, the reality is that they run on a server, but, and here is the important thing, it is a server that you (almost) do not need to worry about, because your Cloud provider will be the responsible of provisioning, scaling and maintaining it, you just need to worry about the code.
 
-[LEGENDARY PICTURE OF A CLOUD]
+![legendary-cloud](/images/serverless/cloud.png)  
+*Legendary picture of a cloud*
 
 And why is this so important? Well, for me this is the big game changer in system architecture I have seen lately, because it helps with, or removes completely, one of the most difficult things you need to consider is to estimate the charge of your system, and then provision accordingly. Overprovisioning will cost you money, and doing a very tight provisioning will end up jeopardizing your system.
 And thre is something even more interesting to note, if you have services in your system with a very small amount of charge, or even no charge for some periods of time, you are paying for them, no matter what.
@@ -35,7 +36,7 @@ The technical stack we will use in the task will be the following:
 
 And the plan is to create a small application to show up how to wire everything up:
 
-[PICTURE OF THE DIAGRAM]
+![diagram](/images/serverless/diagram.png)  
 
 
 As you can see we have 2 **Lambda Functions**, the first one, Lambda 1, will handle POST calls from **API Gateway** with the information of a customer, Name and Email, lets say, something basic.
