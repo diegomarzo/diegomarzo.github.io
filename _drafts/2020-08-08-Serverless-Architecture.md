@@ -194,7 +194,16 @@ In the following example we are going to see hoy I set up for our project the `P
 
 ### Considerations
 
-In GitHubActions you create 
+In GitHubActions you create Workflows, that contains the Jobs and Steps you want to perform.
+
+They are created in the folder `.github/workflows/` and they are basically YAML files.
+
+I won't go into much detail, because the documention is pretty good, but some considerations:
+
+The Jobs are runninng in parallel, so if you have 3 Jobs, they will run in parallel, and you can indicate dependencies between them if you need 1 job to be finised before the others, a good example could be that you are publishing/deploying your program in several environments, so you will need, first of all, to compile, test and build and then you publish in Test and Dev and if they have been deployed well, you deploy into production.
+
+Steps are the different operations that you run inside the Job, and you can understand it like the different things you need to do, for exampl, you will need to 
+
 
 ### The Pull Request workflow
 
