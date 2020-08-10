@@ -7,7 +7,7 @@ Today I want to start a small set of posts, very "How To" oriented about what I 
 ![legendary-cloud](/images/serverless/cloud.png)
 *Legendary picture of a cloud*
 
-Serverless applications have been between us for a while already, but lately, I have noted and a big increase in the number of projects the people is working on, the number of posts you can find around, and in general, I have the feeling that is getting a lot of traction.
+Serverless applications have been between us for a while already, but lately, I have noticed a big increase in the number of projects the people is working on, the number of posts you can find around about the topic, and in general, I have the feeling that is getting a lot of traction.
 
 But, what are Serverless Applications?
 
