@@ -4,14 +4,14 @@ title: 'An introduction to Serverless Architecture, How-to''s'
 ---
 Today I want to start a small set of posts, very "How To" oriented about what I have been working in the last months and really make me think that is the way to architect systems from now on: ***Serverless Architecture***. 
 
+![legendary-cloud](/images/serverless/cloud.png)  
+*Legendary picture of a cloud*
+
 Serverless applications have been between us for a while already, but lately, I have noted and a big increase in the number of projects the people is working on, the number of posts you can find around, and in general, I have the feeling that is getting a lot of traction.
 
 But, what are Serverless Applications?
 
 Apart from the obvious answer of *"An application that runs without a server!"* that looks like the answer a colleague of your is going to give for trolling you a bit, the reality is that they run on a server, but, and here is the important thing, it is a server that you (almost) do not need to worry about, because your Cloud provider will hold the responsibility of provisioning, scaling and maintaining it, you just need to worry about the code.
-
-![legendary-cloud](/images/serverless/cloud.png)  
-*Legendary picture of a cloud*
 
 And why is this so important? Well, for me this is the big game-changer in system architecture I have seen lately, because it helps with, or removes completely, one of the most difficult things you need to consider is to estimate the charge of your system and then provision accordingly. Overprovisioning will cost you money, and doing very tight provisioning will end up jeopardizing your system.
 And there is something even more interesting to note if you have services in your system with a very small amount of charge or even no charge for some periods of time, you are paying for them, no matter what.
