@@ -3,7 +3,7 @@ published: false
 ---
 ## Serverless Framework, a very informal presentation
 
-[SERVERLESS ICON HERE!]
+![serverless](/images/serverless/serverless.png)
 
 We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework, I would like to explain a bit why and the benefits it bring us.
 
@@ -39,35 +39,7 @@ But then... the guys created Serverless Framework, where I'm a small contributor
 
 This is all you need, and your stuff goes straight to the Cloud (with capitals), your Lambdas are createad, your Cloud Watch log groups, your API Gateways, EVEN your DynamoDB tables, your indexes, ANYTHING you need, because, apart from the main part of our `serverless.yml` configuration file, that is the only file you need to touch apart of your typical code, you can add pure CloudFormation stuff.
 
+![serverless](/images/serverless/serverless.png)  
 
-
-
-
-
-
-
-
-## Starting point, lets create our infrastructure layer
-The idea of these posts will be to create a small test application, using my favourite stack, and it looks like the following:
-
-
-
-
-Pre-requisites for our Adventure:
-* AWS Account
-* Serverless installed
-* Github account where we will have our project (This will be its own post)
-
-
-
-
-## Lets Write Some Kode
-Kotlin && AWS in Serverless... We can all be amigos, right?
-
-[Picture of Castro in the Simpsons]
-
-
-
-
-
+Web -> https://www.serverless.com/
 
