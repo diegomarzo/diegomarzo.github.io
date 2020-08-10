@@ -32,7 +32,7 @@ The technical stack we will use in the task will be the following:
 
 * AWS: Cloudformation, Lambda, DynamoDB, EventBridge, API Gateway
 * Kotlin and Gradle: We are going to use the Amazon API V2 for Java
-* Serverless Framework, check this [post] for an informal presentation
+* Serverless Framework, check this [post](https://diegomarzo.github.io/Serverless-Framework-Informal-Introduction/) for an informal presentation
 * GithubActions for CI and CD. We will dedicate a full post about how to make it work with all our tech stack, I suffered a lot, but I achieved excellence :D :D :D :D
 
 And the plan is to create a small application to show up how to wire everything up:
