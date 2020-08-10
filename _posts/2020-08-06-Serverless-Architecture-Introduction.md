@@ -38,6 +38,7 @@ The technical stack we will use in the task will be the following:
 And the plan is to create a small application to show up how to wire everything up:
 
 ![diagram](/images/serverless/diagram.png)  
+*Diagram of the system we are going to implement*
 
 
 As you can see we have 2 **Lambda Functions**, the first one, Lambda 1, will handle POST calls from **API Gateway** with the information of a customer, Name and Email, let's say, something basic.
