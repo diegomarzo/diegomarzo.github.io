@@ -1,7 +1,17 @@
 ---
 published: false
 ---
-# Serverless K-DSL Gradle Task
+Serverless KDSL is a Library we are using in SuprGames, and we decided to provide as OpenSource so everybody can use it, because it is helping us a lot.
+
+![serverles-kdsl](/images/serverless-kdsl.png)
+*Serverless-KDSL from SuprGames to the world*
+
+But, why do you want to use this kind of thing?
+
+Well, for us, the best thing is that is much more difficult to have typos and silly errors that will slow you down, like miss-spelling the name of certain handler, and needing to worry about YML formatting... At the moment it is pretty small, but we are actively working on it.
+
+
+# Serverless K-DSL & Serverless K-DSL Gradle Task
 
 Serverless K-DSL is a small library that allows the generation of some of the Serverless Framework code that needs to be manually written.
 
@@ -263,4 +273,9 @@ task<JavaExec>("generate-serverless") {
      * Base file
      * Base package that will be used to perform the generation
      * The serverless file that will be generated
+     
 
+At the end of the day, the most important thing is the following:
+
+![love](/images/kotlin-serverless-love.png)
+*When I see them working together I realise how much they love each other :)*
