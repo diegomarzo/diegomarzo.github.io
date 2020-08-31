@@ -2,7 +2,7 @@
 layout: page
 title: About
 permalink: /about/
-published: true
+comments: true
 ---
 
 **Some information about us!**
@@ -14,7 +14,3 @@ I mainly developed in Java, but in the last 4-5 years I have been writing all in
 I have been working the last 3 years with AWS and these days I'm playing heavy with it.
 
 So this is what is mainly going to be the blog about.
-
-**We hope you enjoy our content (she is much nicer than the logo)**
-
-![image](/images/head-chi.png)
