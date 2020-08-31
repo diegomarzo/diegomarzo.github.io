@@ -3,8 +3,8 @@ layout: post
 title: We are up and running!
 published: true
 image: /images/picture-lupita.png
-categories: [ aboutUs ]
-tags: [ aws, intro, chihuahua ]
+categories: [ about ]
+tags: [ intro, chihuahua ]
 comments: true
 ---
 
