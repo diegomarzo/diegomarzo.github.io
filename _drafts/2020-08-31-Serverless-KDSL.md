@@ -282,8 +282,9 @@ At the end of the day, the most important thing is the following:
 
 ## Resources
 
-*Core*:
-https://github.com/SuprGames/serverless-kdsl
+**Core**:
+[https://github.com/SuprGames/serverless-kdsl](https://github.com/SuprGames/serverless-kdsl)
 
-*Generator*:
-https://github.com/SuprGames/serverless-kdsl-generator
+
+**Generator**:
+[https://github.com/SuprGames/serverless-kdsl-generator](https://github.com/SuprGames/serverless-kdsl-generator)
