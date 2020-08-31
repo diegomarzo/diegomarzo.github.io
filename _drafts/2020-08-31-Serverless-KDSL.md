@@ -280,7 +280,7 @@ At the end of the day, the most important thing is the following:
 ![love](/images/kotlin-serverless-love.png)
 *When I see them working together I realise how much they love each other :)*
 
-##Resources
+## Resources
 
 *Core*:
 https://github.com/SuprGames/serverless-kdsl
