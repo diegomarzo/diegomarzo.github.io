@@ -2,7 +2,11 @@
 layout: post
 title: Networks and CIDR notation
 published: true
+image: /images/cidr.png
+categories: [ networks ]
+tags: [ basic, cidr ]
 ---
+
 
 One of the things, as a developer, that I found when working with AWS and CloudFormation, was that a lot of the knowledge I used to have about a lot of things related with Networking was really really rusty, even pretty basic stuff. 
 

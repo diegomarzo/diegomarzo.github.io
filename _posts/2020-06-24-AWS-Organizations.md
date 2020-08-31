@@ -3,9 +3,14 @@ layout: post
 title: Set up environments with AWS Organizations
 published: true
 image: /images/aws-organizations.png
+categories: [ aws ]
+tags: [ organizations, environments ]
 ---
 
 So, our use case is the following, Lupita just registered her AWS account because she wants to start her own Gaming Company, the first thing she realised she want to do, to start everything from right point it is to split her account into different separate environments, this way she can be implementing new stuff in the DEV environment, while I am testing that all is going well in our TEST environment before moving everything to Production so our clients can play our games. We also realised we need to have some things in a common place.
+
+![image](/images/aws-organizations.png)
+*AWS Organizations*
 
 My preferred option to do this task is to make use of the AWS Organisations.
 
