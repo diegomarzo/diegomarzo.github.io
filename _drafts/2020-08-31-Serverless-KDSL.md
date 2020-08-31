@@ -31,7 +31,7 @@ package io.suprgames.player
 @HttpFunction(name = "register-player", method = HttpMethod.POST, path = "player/register", cors = true)
 class RegisterPlayerHandler : RequestHandler<Map<String, Any>, ApiGatewayResponse> {
 
-// Code here
+ //Code here
 
 }
 ```
