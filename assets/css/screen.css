@@ -724,6 +724,10 @@ h6 {
     margin-bottom: 1rem;
 }
 
+.featured-image {
+    display: none;
+}
+
 img {
     max-width: 100%;
     display: flex;
