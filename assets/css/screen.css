@@ -726,6 +726,10 @@ h6 {
 
 img {
     max-width: 100%;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    border-style: none;
 }
 
 .bottompagination span.navigation {
