@@ -299,6 +299,11 @@ span.post-read-more a:hover {
     cursor: pointer;
 }
 
+img + em { 
+  display: block;
+  text-align: center;
+}
+
 .mediumnavigation .navbar-brand img {
     max-height: 30px;
     margin-right: 5px;
