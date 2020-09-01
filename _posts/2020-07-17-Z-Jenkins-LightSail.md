@@ -1,6 +1,10 @@
 ---
+layout: post
 published: true
 title: Running Jenkins in a cheap Lighsail instance
+image: /images/jk/jenkins-logo.png
+categories: [ CI/CD ]
+tags: [ jenkins, lightsail ]
 ---
 In this post we are going to create a Jenkins machine, instead of starting from the very scratch, we are going to use the machine we created and hooked up with Wire Guard in this post [post](https://diegomarzo.github.io/VPN-VPC-WireGuard/)
 
@@ -100,3 +104,6 @@ A very good idea now will be, just before starting to create Jenkins stuff, to c
 In LightSail Main page -> Select your instance -> Snapshots -> Create Snapshot
 
 The process took for me like 5 minutes more or less, so grab a cup of coffee!!
+
+## Disclaimer
+I prefer to use Github Actions 1000000 times before Jenkins, I only can see pro's to Github Actions if I compare it with this setup or a similar (and more expensive) one.

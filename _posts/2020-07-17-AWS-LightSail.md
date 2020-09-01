@@ -1,7 +1,12 @@
 ---
+layout: post
 published: false
 title: 'LightSail, cheap servers for everyone!'
+image: /images/ls-logo.png
+categories: [ aws, lightsail ]
+tags: [ lightsail ]
 ---
+
 What is AWS LightSail? It is Amazon's Simple Cloud Server. It is based mainly in the simplicity of usage, configure and cost-effective, aka Cheap as F$$k.
 
 ![image](/images/ls/ls-logo.png)

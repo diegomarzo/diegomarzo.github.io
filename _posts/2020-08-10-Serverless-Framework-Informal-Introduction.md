@@ -1,6 +1,10 @@
 ---
+layout: post
 published: true
 title: 'Serverless Framework, a very informal presentation'
+image: /images/serverless/serverless-logo.png
+categories: [ Serverless ]
+tags: [ serverless ]
 ---
 We mentioned in the introductory post about Serverless Architecture that I use Serverless Framework. In this post, we are going to see a very informal presentation about why I use the framework before we go and code stuff.
 

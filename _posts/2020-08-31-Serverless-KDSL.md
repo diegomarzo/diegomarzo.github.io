@@ -1,5 +1,11 @@
 ---
+layout: post
+title: Serverless KDSL
 published: true
+image: /images/serverless-kdsl.png
+categories: [ Serverless, Serverless-KDSL ]
+tags: [ serverless-kdsl ]
+featured:true
 ---
 Serverless KDSL is a Library we are using in SuprGames, and we decided to provide as OpenSource so everybody can use it, because it is helping us a lot.
 

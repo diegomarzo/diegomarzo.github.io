@@ -1,7 +1,12 @@
 ---
-published: true
+layout: post
 title: Referencing external stacks in Cloud Formation
+published: true
+image: /images/cloudformation.png
+categories: [ aws, cloudformation ]
+tags: [ cloudformation, basic ]
 ---
+
 
 CloudFormation is a great tool, and the whole idea of **Infrastructure as Code** as a developer, it is simply brilliant, you can play with all the stuff, and then, you can remove it if you want, or step ahead and update it, and AWS CloudFormation will take care you do not mess up (usually :)). But when you start doing bigger templates, you realise that you need to split them and this is what we are going to cover in this post. 
 
