@@ -2,7 +2,7 @@
 layout: post
 published: true
 title: Bastions EC2 Instance to provide access to VPC private areas
-image: /images/A-Bastion.png.png
+image: /images/A-Bastion.png
 categories: [ aws, networks ]
 tags: [ bastion, network ]
 ---
