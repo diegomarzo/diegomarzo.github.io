@@ -6,6 +6,7 @@ image: /images/wireguard.png
 categories: [ vpn ]
 tags: [ vpn, wireguard ]
 featured:true
+hidden:true
 ---
 
 So you already have a **VPC** that has been created by AWS for your, then you have created some **Subnets** there, and then you have an **Internet Gateway** in your VPC and you have connected some of your networks with your **route tables**.

@@ -6,6 +6,7 @@ image: /images/cloudformation.png
 categories: [ aws, cloudformation ]
 tags: [ cloudformation, basic ]
 featured:true
+hidden:true
 ---
 
 In this post we are going to see how to design a basic network for our company, we have several options to do it, one, for example, is to use the AWS Console and simply go and create our elements, and another option, that is what we think is the most recommended one is to use a CloudFormation template to script all the components that will be needed.

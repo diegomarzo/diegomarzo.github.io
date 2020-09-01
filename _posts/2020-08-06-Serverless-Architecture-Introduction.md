@@ -6,6 +6,7 @@ image: /images/serverless/cloud.png
 categories: [Serverless ]
 tags: [ serverless, intro ]
 featured:true
+hidden:true
 ---
 Today I want to start a small set of posts, very "How To" oriented about what I have been working in the last months and really make me think that is the way to architect systems from now on: ***Serverless Architecture***. 
 
